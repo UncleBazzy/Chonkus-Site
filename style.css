@@ -139,3 +139,28 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+.float-icon {
+  position: absolute;
+  font-size: 2.5rem;
+  animation: floaty 4s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.heart {
+  top: 120px;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.wow {
+  top: 100px;
+  right: 20%;
+  animation-delay: 1.5s;
+}
+
+@keyframes floaty {
+  0% { transform: translateY(0px) scale(1); opacity: 1; }
+  50% { transform: translateY(-20px) scale(1.1); opacity: 0.7; }
+  100% { transform: translateY(0px) scale(1); opacity: 1; }
+}

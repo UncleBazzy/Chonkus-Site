@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reviews of Chonkus Maximus</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Chonkus Maximus Reviews</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Leave a Review</h2>
+    <form id="reviewForm">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <textarea name="review" placeholder="What do you think of Chonkus?" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+
+    <h2>What Others Say</h2>
+    <ul id="reviewsList">
+      <!-- Reviews will be inserted here -->
+    </ul>
+  </main>
+
+  <footer>
+    <p>© 2025 Chonkus Maximus Fan Club</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('reviewForm');
+    const list = document.getElementById('reviewsList');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value;
+      const review = form.review.value;
+
+      const li = document.createElement('li');
+      li.textContent = `${name}: "${review}"`;
+      list.appendChild(li);
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>

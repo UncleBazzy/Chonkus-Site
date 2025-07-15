@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
+  authDomain: "chonkus-maximus.firebaseapp.com",
+  projectId: "chonkus-maximus",
+  storageBucket: "chonkus-maximus.firebasestorage.app",
+  messagingSenderId: "292580079657",
+  appId: "1:292580079657:web:9c86c002b06a337b108438",
+  measurementId: "G-M8EQFJ2SKH"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chonkus Maximus</title>

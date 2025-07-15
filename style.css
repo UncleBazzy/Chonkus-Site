@@ -15,15 +15,6 @@ body {
   min-height: 100vh;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(255, 255, 255, 0.7); /* White, 70% opacity */
-  z-index: -1; /* Behind everything */
-}
-
-
 header, footer {
   background: linear-gradient(90deg, #0D5EAF, #1060c2);
   color: #fff;

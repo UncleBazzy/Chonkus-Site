@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chonkus Maximus</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-RXf+QSDCUQs6x1R12vL+ztd5G9SnA1y5l59s2T1vQkCJr9jw5xXH3oKXW0T+rEKqv5aRy5IVC3Pw7Y9rwA5iQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <header>
@@ -14,6 +17,12 @@
       <a href="index.html">Home</a>
       <a href="reviews.html">Reviews</a>
       <a href="gallery.html">Gallery</a>
+      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
+        <i class="fab fa-telegram-plane"></i> Telegram
+      </a>
+      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
+        <i class="fab fa-x-twitter"></i> X Community
+      </a>
     </nav>
   </header>
 
@@ -23,10 +32,41 @@
       <h2>About Chonkus</h2>
       <p>Chonkus Maximus is not just a cat—he's a lifestyle. Known for his regal loafing and peerless chonkitude, he inspires fans worldwide.</p>
     </section>
+
+    <section>
+      <h2>📜 Token Info</h2>
+      <p><strong>Contract Address (Solana):</strong></p>
+      <code id="contract-address">erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b</code>
+      <button onclick="copyAddress()">Copy</button>
+
+      <p style="margin-top: 1rem;">
+        <a href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">
+          <i class="fas fa-chart-line"></i> View on Dexscreener
+        </a>
+      </p>
+    </section>
   </main>
 
   <footer>
     <p>© 2025 Chonkus Maximus Fan Club</p>
+    <p>
+      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
+        <i class="fab fa-telegram-plane"></i> Join us on Telegram
+      </a>
+      |
+      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
+        <i class="fab fa-x-twitter"></i> Join the X Community
+      </a>
+    </p>
   </footer>
+
+  <script>
+    function copyAddress() {
+      const addr = document.getElementById('contract-address').textContent;
+      navigator.clipboard.writeText(addr).then(() => {
+        alert("Contract address copied to clipboard!");
+      });
+    }
+  </script>
 </body>
 </html>

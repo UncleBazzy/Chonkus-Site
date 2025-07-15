@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+  
 const firebaseConfig = {
   apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
   authDomain: "chonkus-maximus.firebaseapp.com",
@@ -12,7 +14,6 @@ const firebaseConfig = {
   measurementId: "G-M8EQFJ2SKH"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
   <meta charset="UTF-8" />

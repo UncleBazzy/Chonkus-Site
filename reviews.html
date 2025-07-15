@@ -72,21 +72,39 @@ const analytics = getAnalytics(app);
     </p>
   </footer>
 
-  <script>
-    const form = document.getElementById('reviewForm');
-    const list = document.getElementById('reviewsList');
+<script>
+  const form = document.getElementById('reviewForm');
+  const list = document.getElementById('reviewsList');
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = form.name.value;
-      const review = form.review.value;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const review = form.review.value.trim();
+    if (!name || !review) return;
 
+    await firebase.firestore().collection("reviews").add({ name, review, timestamp: new Date() });
+
+    form.reset();
+    loadReviews(); // Refresh list
+  });
+
+  async function loadReviews() {
+    const snapshot = await firebase.firestore()
+      .collection("reviews")
+      .orderBy("timestamp", "desc")
+      .get();
+
+    list.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
       const li = document.createElement('li');
-      li.textContent = `${name}: "${review}"`;
+      li.textContent = `${data.name}: "${data.review}"`;
       list.appendChild(li);
-
-      form.reset();
     });
-  </script>
+  }
+
+  loadReviews();
+</script>
+
 </body>
 </html>

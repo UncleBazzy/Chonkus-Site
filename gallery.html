@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery of Chonkus Maximus</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Chonkus Gallery</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Upload Your Photo of Chonkus</h2>
+    <form id="photoForm">
+      <input type="file" id="photoInput" accept="image/*" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <h2>Fan Submissions</h2>
+    <div id="photoGallery" class="gallery">
+      <!-- Photos appear here -->
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Chonkus Maximus Fan Club</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('photoForm');
+    const gallery = document.getElementById('photoGallery');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const file = document.getElementById('photoInput').files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const img = document.createElement('img');
+        img.src = event.target.result;
+        img.alt = "Fan photo of Chonkus Maximus";
+        img.classList.add("fan-photo");
+        gallery.appendChild(img);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>

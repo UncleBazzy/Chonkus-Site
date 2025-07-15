@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff8f0;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header, footer {
+  background-color: #ffc6c6;
+  text-align: center;
+  padding: 1rem;
+}
+
+nav a {
+  margin: 0 1em;
+  text-decoration: none;
+  color: #000;
+}
+
+main {
+  padding: 2rem;
+}
+
+.main-img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  display: block;
+  margin: auto;
+}
+
+form {
+  margin-bottom: 2rem;
+}
+
+textarea, input {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+
+button {
+  background-color: #ffa07a;
+  border: none;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.fan-photo {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}

@@ -95,3 +95,43 @@ const analytics = getAnalytics(app);
   </script>
 </body>
 </html>
+<script>
+  const form = document.getElementById('photoForm');
+  const gallery = document.getElementById('photoGallery');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const file = document.getElementById('photoInput').files[0];
+    if (!file) return;
+
+    const storageRef = firebase.storage().ref('images/' + Date.now() + '_' + file.name);
+    await storageRef.put(file);
+    const url = await storageRef.getDownloadURL();
+
+    await firebase.firestore().collection("gallery").add({
+      imageUrl: url,
+      timestamp: new Date()
+    });
+
+    loadGallery();
+  });
+
+  async function loadGallery() {
+    const snapshot = await firebase.firestore()
+      .collection("gallery")
+      .orderBy("timestamp", "desc")
+      .get();
+
+    gallery.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const img = document.createElement('img');
+      img.src = data.imageUrl;
+      img.alt = "Fan photo of Chonkus";
+      img.classList.add("fan-photo");
+      gallery.appendChild(img);
+    });
+  }
+
+  loadGallery();
+</script>

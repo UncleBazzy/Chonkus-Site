@@ -2,11 +2,27 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #fdfdfd, #f0f8ff);
+  /* Background image with nice cover */
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* Add a subtle overlay for text readability */
+  position: relative;
   color: #0D5EAF;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7); /* White, 70% opacity */
+  z-index: -1; /* Behind everything */
+}
+
 
 header, footer {
   background: linear-gradient(90deg, #0D5EAF, #1060c2);
@@ -44,6 +60,13 @@ main {
   padding: 2rem;
   max-width: 1000px;
   margin: auto;
+}
+section, main, header, footer {
+  background-color: rgba(255, 255, 255, 0.85); /* White with slight transparency */
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
 }
 
 section {

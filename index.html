@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-  
-const firebaseConfig = {
-  apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
-  authDomain: "chonkus-maximus.firebaseapp.com",
-  projectId: "chonkus-maximus",
-  storageBucket: "chonkus-maximus.firebasestorage.app",
-  messagingSenderId: "292580079657",
-  appId: "1:292580079657:web:9c86c002b06a337b108438",
-  measurementId: "G-M8EQFJ2SKH"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chonkus Maximus</title>
@@ -44,7 +29,7 @@ const analytics = getAnalytics(app);
   <main>
     <section>
       <div class="float-icon heart">❤️</div>
-<div class="float-icon wow">❗️</div>
+      <div class="float-icon wow">❗️</div>
       <img src="chonkus.jpg" alt="Chonkus Maximus in full glory" class="main-img"/>
       <h2>About Chonkus</h2>
       <p>Chonkus Maximus is not just a cat—he's a lifestyle. Known for his regal loafing and peerless chonkitude, he inspires fans worldwide.</p>
@@ -77,6 +62,7 @@ const analytics = getAnalytics(app);
     </p>
   </footer>
 
+  <!-- Copy to clipboard script -->
   <script>
     function copyAddress() {
       const addr = document.getElementById('contract-address').textContent;
@@ -84,6 +70,25 @@ const analytics = getAnalytics(app);
         alert("Contract address copied to clipboard!");
       });
     }
+  </script>
+
+  <!-- Firebase Initialization -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
+      authDomain: "chonkus-maximus.firebaseapp.com",
+      projectId: "chonkus-maximus",
+      storageBucket: "chonkus-maximus.appspot.com",
+      messagingSenderId: "292580079657",
+      appId: "1:292580079657:web:9c86c002b06a337b108438",
+      measurementId: "G-M8EQFJ2SKH"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
   </script>
 </body>
 </html>

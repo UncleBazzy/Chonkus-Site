@@ -5,8 +5,6 @@
   <title>Reviews of Chonkus Maximus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -16,12 +14,8 @@
       <a href="index.html">Home</a>
       <a href="reviews.html">Reviews</a>
       <a href="gallery.html">Gallery</a>
-      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
-        <i class="fab fa-telegram-plane"></i> Telegram
-      </a>
-      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
-        <i class="fab fa-x-twitter"></i> X Community
-      </a>
+      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram</a>
+      <a href="https://x.com/i/communities/1943379266932285826" target="_blank"><i class="fab fa-x-twitter"></i> X Community</a>
     </nav>
   </header>
 
@@ -30,9 +24,12 @@
     <form id="reviewForm">
       <label for="name">Your Name</label>
       <input id="name" type="text" name="name" placeholder="Your Name" required />
-
+      
       <label for="review">What do you think of Chonkus?</label>
       <textarea id="review" name="review" placeholder="Write your review..." required></textarea>
+
+      <label for="photo">Upload a photo of Chonkus (optional)</label>
+      <input id="photo" type="file" accept="image/*" />
 
       <button type="submit">Submit</button>
     </form>
@@ -40,25 +37,18 @@
     <div id="spinner" style="display:none; text-align:center; margin:1rem;">Loading reviews...</div>
 
     <h2>What Others Say</h2>
-    <ul id="reviewsList" aria-live="polite">
-      <!-- Reviews will appear here -->
-    </ul>
+    <ul id="reviewsList" aria-live="polite"></ul>
   </main>
 
   <footer>
     <p>© 2025 Chonkus Maximus Fan Club</p>
     <p>
-      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
-        <i class="fab fa-telegram-plane"></i> Join us on Telegram
-      </a>
-      |
-      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
-        <i class="fab fa-x-twitter"></i> Join the X Community
-      </a>
+      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank"><i class="fab fa-telegram-plane"></i> Join us on Telegram</a> |
+      <a href="https://x.com/i/communities/1943379266932285826" target="_blank"><i class="fab fa-x-twitter"></i> Join the X Community</a>
     </p>
   </footer>
 
-  <!-- Firebase & App Logic -->
+  <!-- Firebase SDK & JS -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -70,12 +60,18 @@
       query,
       orderBy
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
       authDomain: "chonkus-maximus.firebaseapp.com",
       projectId: "chonkus-maximus",
-      storageBucket: "chonkus-maximus.firebasestorage.app",
+      storageBucket: "chonkus-maximus.appspot.com",  // fixed typo here
       messagingSenderId: "292580079657",
       appId: "1:292580079657:web:9c86c002b06a337b108438",
       measurementId: "G-M8EQFJ2SKH"
@@ -84,6 +80,7 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
     const form = document.getElementById('reviewForm');
     const list = document.getElementById('reviewsList');
@@ -91,16 +88,27 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = form.name.value.trim();
-      const review = form.review.value.trim();
+      const name = document.getElementById('name').value.trim();
+      const review = document.getElementById('review').value.trim();
+      const file = document.getElementById('photo').files[0];
+      let imageUrl = null;
+
       if (!name || !review) return;
 
       try {
+        if (file) {
+          const storageRef = ref(storage, `reviews/${Date.now()}_${file.name}`);
+          await uploadBytes(storageRef, file);
+          imageUrl = await getDownloadURL(storageRef);
+        }
+
         await addDoc(collection(db, "reviews"), {
           name,
           review,
+          imageUrl,
           timestamp: new Date()
         });
+
         form.reset();
         loadReviews();
       } catch (err) {
@@ -114,13 +122,17 @@
         spinner.style.display = 'block';
         const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
         const snapshot = await getDocs(q);
-
         list.innerHTML = '';
+
         snapshot.forEach(doc => {
           const data = doc.data();
-          const li = document.createElement('li');
           const date = data.timestamp?.toDate?.() || new Date();
-          li.textContent = `${data.name} (${date.toLocaleString()}): "${data.review}"`;
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <strong>${data.name}</strong> <em>(${date.toLocaleString()})</em><br/>
+            ${data.review}
+            ${data.imageUrl ? `<div><img src="${data.imageUrl}" alt="Chonkus fan photo" style="max-width:200px; margin-top:8px; border-radius:8px;"></div>` : ""}
+          `;
           list.appendChild(li);
         });
       } catch (err) {

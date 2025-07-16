@@ -105,6 +105,296 @@
       text-align: center;
     }
 
+    .gallery-container {
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery-fade {
+      position: relative;
+      height: 280px;
+    }
+
+    .gallery-fade img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      background-color: #fff;
+      padding: 10px;
+    }
+
+    .gallery-fade img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .gallery-button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      pointer-events: all;
+    }
+
+    .gallery-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .chonkus-stories {
+  background-color: #f7f9fc;
+  padding: 40px 20px;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 60px auto 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  color: #003366;
+}
+
+.chonkus-stories h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+.chonkus-stories .story {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: white;
+  border-left: 4px solid #007BFF;
+  border-radius: 6px;
+}
+
+.chonkus-stories .story h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #0056b3;
+}
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .intro {
+      max-width: 800px;
+      margin: 20px auto 40px;
+      font-size: 1.1rem;
+      color: #003366;
+      text-align: center;
+    }
+
+    #chonkMap {
+      height: 400px;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <header>
+<h1><span class="flag">🇬🇷</span> Welcome to the Chonkus Maximus Community! <span class="flag">🇬🇷</span></h1>
+      <p>The most majestic chonk in feline history has gone global! Share sightings, tales and join our growing cult of Chonkus!</p>
+    </header>
+
+    <!-- 🐈 Intro Section -->
+    <section class="intro">
+      <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
+      <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
+    </section>
+
+    <!-- 🔗 Links Section -->
+    <section class="link-grid">
+      <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
+      <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
+      <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">🪙 Dexscreener</a>
+      <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
+      <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
+       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">Media</a>
+    </section>
+
+    <!-- 🐈‍⬛ Chonk Counter -->
+    <div class="chonk-counter">
+      🐈‍⬛ Chonk Counter: <span id="chonkCount">0</span>
+    </div>
+
+    <!-- 🖼️ Gallery Section -->
+    <h2>📸 Latest Chonks</h2>
+    <div class="gallery-container">
+      <div class="gallery-fade" id="galleryImages"></div>
+      <div class="gallery-controls">
+        <button class="gallery-button" id="prevBtn">&#10094;</button>
+        <button class="gallery-button" id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+
+        <!-- 📝 Chonkus Stories Section -->
+<section class="chonkus-stories">
+ <!-- 📝 Tales of Chonkus -->
+<section class="chonkus-stories">
+  <h2>📝 Tales of Chonkus</h2>
+
+  <div class="story">
+    <h3>“The Pastry Incident”</h3>
+    <p>Chonkus once fell asleep inside a bakery display. Tourists thought he was a new kind of croissant. He did not move, but he did gain three followers.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Fish Ultimatum”</h3>
+    <p>A priest once tried to ignore Chonkus during mass. The cat stared for six minutes straight. The priest broke, handed him a fish, and resumed the sermon.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Olive Oil Heist”</h3>
+    <p>Caught licking an unattended olive oil bottle, Chonkus looked up slowly... and continued licking. The owner apologized for interrupting.</p>
+  </div>
+
+  <div class="story">
+    <h3>“Siesta Siege”</h3>
+    <p>He once occupied a restaurant chair for seven consecutive hours. No one dared move him. The restaurant now calls it “The Throne.”</p>
+  </div>
+
+  <div class="story">
+    <h3>“Ghost Meower of Knossos”</h3>
+    <p>Locals swear they hear him meowing late at night from inside ancient ruins. Historians say it’s impossible. Chonkus says nothing.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Scooter Standoff”</h3>
+    <p>A delivery scooter beeped at Chonkus to move. Chonkus blinked once. The driver reversed 10 meters and took a different route.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Belly Eclipse”</h3>
+    <p>During a solar eclipse, someone looked up, then down — and realized it was just Chonkus rolling over in the sun.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Gyro Gambit”</h3>
+    <p>He once approached a tourist, placed a paw on their gyro, and meowed softly. They gave him the whole thing. He nodded once, then left.</p>
+  </div>
+
+  <div class="story">
+    <h3>“Purrliament of Cats”</h3>
+    <p>Five other cats once gathered around Chonkus in a circle. No one moved. After five minutes, they all dispersed in different directions. No one knows what was decided.</p>
+  </div>
+
+  <div class="story">
+    <h3>“The Yelp Review”</h3>
+    <p>A taverna got a five-star Google review saying, “Excellent food, plus cat.” The owner didn’t have a cat. Chonkus had simply appeared that day.</p>
+  </div>
+</section>
+
+
+    <footer>
+      &copy; 2025 Chonkus Maximus. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA="
+    crossorigin=""
+  ></script>
+
+  <script>
+    // Gallery Logic
+    const galleryImages = document.getElementById("galleryImages");
+    let index = 0;
+    let totalImages = 0;
+    let imgElements = [];
+
+    async function loadGalleryImages() {
+      try {
+        const response = await fetch("https://api.github.com/repos/UncleBazzy/Chonkus-Site/contents/images");
+        const files = await response.json();
+        const imageFiles = files.filter(file =>
+          file.type === "file" && /\.(jpe?g|png|gif)$/i.test(file.name)
+        );
+
+        totalImages = imageFiles.length;
+
+        imageFiles.forEach((file, i) => {
+          const img = document.createElement("img");
+          img.src = file.download_url;
+          img.alt = file.name;
+          if (i === 0) img.classList.add("active");
+          galleryImages.appendChild(img);
+          imgElements.push(img);
+        });
+      } catch (err) {
+        console.error("Error loading gallery images:", err);
+      }
+    }
+
+    function showImage(i) {
+      imgElements.forEach((img, idx) => {
+        img.classList.toggle("active", idx === i);
+      });
+    }
+
+    function nextImage() {
+      if (!imgElements.length) return;
+      index = (index + 1) % totalImages;
+      showImage(index);
+    }
+
+    function prevImage() {
+      if (!imgElements.length) return;
+      index = (index - 1 + totalImages) % totalImages;
+      showImage(index);
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", nextImage);
+    document.getElementById("prevBtn").addEventListener("click", prevImage);
+    setInterval(() => { if (totalImages > 0) nextImage(); }, 5000);
+
+    loadGalleryImages();
+
+    // Chonk Counter (simulated)
+    const chonkCount = document.getElementById("chonkCount");
+    let count = Math.floor(Math.random() * 1000) + 1000;
+    chonkCount.textContent = count.toLocaleString();
+
+    setInterval(() => {
+      count += Math.floor(Math.random() * 3);
+      chonkCount.textContent = count.toLocaleString();
+    }, 4000);
+
+    
+</body>
+</html>
+
     .chonkus-stories {
       background-color: #f7f9fc;
       padding: 40px 20px;

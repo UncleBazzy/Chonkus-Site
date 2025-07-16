@@ -219,7 +219,6 @@
       <h1><span class="flag">🇬🇷</span> Welcome to the Chonkus Maximus Community! <span class="flag">🇬🇷</span></h1>
     </header>
 
-        <!-- 🐈 Intro Section -->
     <section class="intro">
       <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
@@ -246,19 +245,32 @@
       </div>
     </div>
 
-    <!-- 📝 Tales of Chonkus Rotator -->
     <section class="story-rotator">
       <h2>📝 Tales of Chonkus</h2>
       <div class="story-text" id="chonkusTale"></div>
     </section>
 
-  <!-- Leaflet JS -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA="
-    crossorigin=""
-  ></script>
+    <section>
+      <h2>🎬 Watch Chonkus on YouTube</h2>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); margin-bottom:20px;">
+        <iframe
+          src="https://www.youtube.com/embed/UbkTjkNXHxY?si=kZovQlG0fJA8yO7Y"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="Chonkus Maximus on YouTube"
+        ></iframe>
+      </div>
+    </section>
 
+    <div id="chonkMap"></div>
+
+    <footer>
+      &copy; 2025 Your Community. All rights reserved.
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA=" crossorigin=""></script>
   <script>
     // Gallery
     const galleryImages = document.getElementById("galleryImages");
@@ -346,27 +358,11 @@
     rotateTales();
     setInterval(rotateTales, 7000);
 
-  
+    // Initialize Leaflet map
+    const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-
-     <section>
-  <h2>🎬 Watch Chonkus on YouTube</h2>
-  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); margin-bottom:20px;">
-    <iframe
-      src="https://www.youtube.com/embed/UbkTjkNXHxY?si=kZovQlG0fJA8yO7Y"
-      style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      title="Chonkus Maximus on YouTube"
-    ></iframe>
-  </div>
-</section>
-
-    });
   </script>
-      <footer>
-      &copy; 2025 Your Community. All rights reserved.
-    </footer>
-  </div>
 </body>
 </html>

@@ -164,35 +164,7 @@
     .gallery-button:hover {
       background-color: rgba(0, 0, 0, 0.8);
     }
-    .chonkus-stories {
-  background-color: #f7f9fc;
-  padding: 40px 20px;
-  border-radius: 12px;
-  max-width: 800px;
-  margin: 60px auto 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  color: #003366;
-}
 
-.chonkus-stories h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-}
-
-.chonkus-stories .story {
-  margin-bottom: 25px;
-  padding: 15px;
-  background: white;
-  border-left: 4px solid #007BFF;
-  border-radius: 6px;
-}
-
-.chonkus-stories .story h3 {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
-  color: #0056b3;
-}
     footer {
       margin-top: 60px;
       font-size: 0.9rem;
@@ -222,8 +194,8 @@
 
   <div class="overlay">
     <header>
-<h1><span class="flag">🇬🇷</span> Welcome to the Chonkus Maximus Community! <span class="flag">🇬🇷</span></h1>
-      <p>The most majestic chonk in feline history has gone global! Share sightings, tales and join our growing cult of Chonkus!</p>
+      <h1><span class="flag">🇬🇷</span> Welcome to Our Community <span class="flag">🇬🇷</span></h1>
+      <p>Connect with us across platforms</p>
     </header>
 
     <!-- 🐈 Intro Section -->
@@ -239,7 +211,6 @@
       <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">🪙 Dexscreener</a>
       <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
-       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">Media</a>
     </section>
 
     <!-- 🐈‍⬛ Chonk Counter -->
@@ -257,8 +228,12 @@
       </div>
     </div>
 
+    <!-- 🗺️ Map Section -->
+    <h2>📍 Chonkus Sightings Map</h2>
+    <div id="chonkMap"></div>
+
     <footer>
-      &copy; 2025 Chonkus Maximus. All rights reserved.
+      &copy; 2025 Your Community. All rights reserved.
     </footer>
   </div>
 
@@ -333,49 +308,6 @@
       chonkCount.textContent = count.toLocaleString();
     }, 4000);
 
-<!-- 📝 Rotating Tales of Chonkus -->
-<section class="chonkus-stories rotating">
-  <h2>📝 Tales of Chonkus</h2>
-  <div class="story active">
-    <h3>“The Pastry Incident”</h3>
-    <p>Chonkus once fell asleep inside a bakery display. Tourists thought he was a new kind of croissant...</p>
-  </div>
-  <div class="story">
-    <h3>“The Fish Ultimatum”</h3>
-    <p>A priest once tried to ignore Chonkus during mass. The cat stared for six minutes straight...</p>
-  </div>
-  <div class="story">
-    <h3>“The Olive Oil Heist”</h3>
-    <p>Caught licking an unattended olive oil bottle, Chonkus looked up slowly... and continued licking.</p>
-  </div>
-</section>
-
-  .chonkus-stories.rotating .story {
-  display: none;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.chonkus-stories.rotating .story.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-    <script>
-  const stories = document.querySelectorAll(".chonkus-stories.rotating .story");
-  let currentIndex = 0;
-
-  function showNextStory() {
-    stories[currentIndex].classList.remove("active");
-    currentIndex = (currentIndex + 1) % stories.length;
-    stories[currentIndex].classList.add("active");
-  }
-
-  setInterval(showNextStory, 8000); // Change story every 8 seconds
-</script>
-
-
+ 
 </body>
 </html>

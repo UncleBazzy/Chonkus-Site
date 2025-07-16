@@ -98,24 +98,22 @@
 </section>
 
   <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-    import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
-    import L from 'https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
-      authDomain: "chonkus-maximus.firebaseapp.com",
-      projectId: "chonkus-maximus",
-      storageBucket: "chonkus-maximus.firebasestorage.app",
-      messagingSenderId: "292580079657",
-      appId: "1:292580079657:web:9c86c002b06a337b108438"
-      measurementId: "G-M8EQFJ2SKH"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
+  authDomain: "chonkus-maximus.firebaseapp.com",
+  projectId: "chonkus-maximus",
+  storageBucket: "chonkus-maximus.firebasestorage.app",
+  messagingSenderId: "292580079657",
+  appId: "1:292580079657:web:9c86c002b06a337b108438",
+  measurementId: "G-M8EQFJ2SKH"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
     const form = document.getElementById('uploadForm');
     const status = document.getElementById('uploadStatus');

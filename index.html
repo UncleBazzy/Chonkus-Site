@@ -31,6 +31,51 @@
       color: #336699;
     }
 
+    .gallery-container {
+      max-width: 600px;
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .gallery-images img {
+      min-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .gallery-button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .gallery-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
     .link-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -69,17 +114,66 @@
     <p>Connect with us across platforms</p>
   </header>
 
+  <!-- Rotating Image Gallery -->
+  <div class="gallery-container">
+    <div class="gallery-images" id="galleryImages">
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/1.jpg" alt="Chonkus 1" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/2.jpg" alt="Chonkus 2" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/3.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/4.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/5.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/6.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/7.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/8.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/9.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/10.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/11.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/12.jpg" alt="Chonkus 3" />
+      <img src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/13.jpg" alt="Chonkus 3" />
+    </div>
+    <div class="gallery-controls">
+      <button class="gallery-button" id="prevBtn">&#10094;</button>
+      <button class="gallery-button" id="nextBtn">&#10095;</button>
+    </div>
+  </div>
+
+  <!-- Links Section -->
   <section class="link-grid">
-    <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">Join Telegram</a>
-    <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">Join Community</a>
-    <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">Dexscreener</a>
-    <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">9m views on TikTok</a>
-    <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">View Google Maps</a>
+    <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
+    <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
+    <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">📈 Dexscreener</a>
+    <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
+    <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
   </section>
 
   <footer>
     &copy; 2025 Your Community. All rights reserved.
   </footer>
+
+  <script>
+    const images = document.getElementById("galleryImages");
+    const totalImages = images.children.length;
+    let index = 0;
+
+    function showImage(i) {
+      images.style.transform = `translateX(-${i * 100}%)`;
+    }
+
+    function nextImage() {
+      index = (index + 1) % totalImages;
+      showImage(index);
+    }
+
+    function prevImage() {
+      index = (index - 1 + totalImages) % totalImages;
+      showImage(index);
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", nextImage);
+    document.getElementById("prevBtn").addEventListener("click", prevImage);
+
+    setInterval(nextImage, 5000); // Auto-rotate every 5 seconds
+  </script>
 
 </body>
 </html>

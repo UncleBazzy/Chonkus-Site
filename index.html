@@ -2,335 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Community Hub</title>
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-VRmA36kHmBDLQO9evYghMrcWg3eA7UdMkNn4qkY7s7E="
-    crossorigin=""
-  />
-
+  <title>Chonkus Upload & Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/13.jpg') no-repeat center center fixed;
-      background-size: cover;
+      font-family: sans-serif;
+      margin: 40px;
+      background: #f2f9ff;
       color: #003366;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 40px 20px;
     }
-
-    .overlay {
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      padding: 40px 20px;
-      width: 100%;
-      max-width: 1000px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
-
-    header {
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .flag {
-      display: inline-block;
-      font-size: 2rem;
-      animation: wave 2s infinite ease-in-out;
-      transform-origin: 70% 70%;
-    }
-
-    @keyframes wave {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(10deg); }
-      50% { transform: rotate(-10deg); }
-      75% { transform: rotate(10deg); }
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #336699;
-    }
-
     h2 {
-      font-size: 1.8rem;
-      color: #003366;
-      margin: 40px 0 20px;
       text-align: center;
+      margin-top: 20px;
     }
-
-    .link-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    a.button {
-      display: block;
-      background-color: #007BFF;
-      color: white;
-      text-decoration: none;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-
-    a.button:hover {
-      background-color: #0056b3;
-    }
-
-    .chonk-counter {
-      margin-top: 30px;
-      font-size: 1.4rem;
-      color: #222;
-      text-align: center;
-    }
-
-    .gallery-container {
-      position: relative;
+    form {
       max-width: 400px;
-      width: 100%;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 12px;
+      margin: 20px auto;
+      padding: 20px;
       background: #fff;
+      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .gallery-fade {
-      position: relative;
-      height: 280px;
-    }
-
-    .gallery-fade img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 280px;
-      object-fit: contain;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-      background-color: #fff;
-      padding: 10px;
-    }
-
-    .gallery-fade img.active {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .gallery-controls {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 10px;
-      pointer-events: none;
-    }
-
-    .gallery-button {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      pointer-events: all;
-    }
-
-    .gallery-button:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    footer {
-      margin-top: 60px;
-      font-size: 0.9rem;
-      color: #666;
-      text-align: center;
-    }
-
-    .intro {
-      max-width: 800px;
-      margin: 20px auto 40px;
-      font-size: 1.1rem;
-      color: #003366;
-      text-align: center;
-    }
-
     #chonkMap {
       height: 400px;
-      width: 100%;
       max-width: 800px;
-      margin: 0 auto;
+      margin: 40px auto;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #uploadStatus {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <div class="overlay">
-    <header>
-      <h1><span class="flag">🇬🇷</span> Welcome to the Chonkus maximus Community! <span class="flag">🇬🇷</span></h1>
-    </header>
+  <h2>📷 Upload Your Chonkus</h2>
+  <form id="uploadForm">
+    <input type="file" id="chonkImage" accept="image/*" required><br><br>
+    <input type="text" id="caption" placeholder="Enter a caption..." required><br><br>
+    <button type="submit">Submit</button>
+    <p id="uploadStatus"></p>
+  </form>
 
-    <!-- 🐈 Intro Section -->
-    <section class="intro">
-      <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
-      <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
-    </section>
+  <h2>📍 Chonkus Sightings Map</h2>
+  <div id="chonkMap"></div>
 
-    <!-- 🔗 Links Section -->
-    <section class="link-grid">
-      <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
-      <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
-      <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">🪙 Dexscreener</a>
-      <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
-      <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
-    </section>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
-    <!-- 🐈‍⬛ Chonk Counter -->
-    <div class="chonk-counter">
-      🐈‍⬛ Chonk Counter: <span id="chonkCount">0</span>
-    </div>
+    const firebaseConfig = {
+      apiKey: \"AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14\",
+      authDomain: \"chonkus-maximus.firebaseapp.com\",
+      projectId: \"chonkus-maximus\",
+      storageBucket: \"chonkus-maximus.firebasestorage.app\",
+      messagingSenderId: \"292580079657\",
+      appId: \"1:292580079657:web:9c86c002b06a337b108438\"
+    };
 
-    <!-- 🖼️ Gallery Section -->
-    <h2>📸 Latest Chonks</h2>
-    <div class="gallery-container">
-      <div class="gallery-fade" id="galleryImages"></div>
-      <div class="gallery-controls">
-        <button class="gallery-button" id="prevBtn">&#10094;</button>
-        <button class="gallery-button" id="nextBtn">&#10095;</button>
-      </div>
-    </div>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    <!-- 🗺️ Map Section -->
-    <h2>📍 Chonkus Sightings Map</h2>
-    <div id="chonkMap"></div>
+    // Upload logic
+    const form = document.getElementById('uploadForm');
+    const status = document.getElementById('uploadStatus');
 
-    <footer>
-      &copy; 2025 Your Community. All rights reserved.
-    </footer>
-  </div>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = document.getElementById('chonkImage').files[0];
+      const caption = document.getElementById('caption').value;
 
-  <!-- Leaflet JS -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA="
-    crossorigin=""
-  ></script>
-
-  <script>
-    // Gallery Logic
-    const galleryImages = document.getElementById("galleryImages");
-    let index = 0;
-    let totalImages = 0;
-    let imgElements = [];
-
-    async function loadGalleryImages() {
+      status.textContent = \"Uploading...\";
       try {
-        const response = await fetch("https://api.github.com/repos/UncleBazzy/Chonkus-Site/contents/images");
-        const files = await response.json();
-        const imageFiles = files.filter(file =>
-          file.type === "file" && /\.(jpe?g|png|gif)$/i.test(file.name)
+        const fileRef = ref(storage, `uploads/${Date.now()}_${file.name}`);
+        await uploadBytes(fileRef, file);
+        const imageURL = await getDownloadURL(fileRef);
+
+        const location = await new Promise((res) =>
+          navigator.geolocation.getCurrentPosition(
+            pos => res({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+            () => res({ lat: null, lng: null })
+          )
         );
 
-        totalImages = imageFiles.length;
-
-        imageFiles.forEach((file, i) => {
-          const img = document.createElement("img");
-          img.src = file.download_url;
-          img.alt = file.name;
-          if (i === 0) img.classList.add("active");
-          galleryImages.appendChild(img);
-          imgElements.push(img);
+        await addDoc(collection(db, \"chonks\"), {
+          imageURL,
+          caption,
+          location,
+          timestamp: new Date()
         });
-      } catch (err) {
-        console.error("Error loading gallery images:", err);
-      }
-    }
 
-    function showImage(i) {
-      imgElements.forEach((img, idx) => {
-        img.classList.toggle("active", idx === i);
+        status.textContent = \"✅ Uploaded successfully!\";
+        form.reset();
+        loadChonkusPins(); // refresh markers
+      } catch (err) {
+        console.error(err);
+        status.textContent = \"❌ Upload failed.\";
+      }
+    });
+
+    // Load map & pins
+    import L from 'https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js';
+
+    const map = L.map('chonkMap').setView([35.3398, 25.1333], 9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    async function loadChonkusPins() {
+      const snapshot = await getDocs(collection(db, \"chonks\"));
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.location?.lat && data.location?.lng) {
+          L.marker([data.location.lat, data.location.lng])
+            .addTo(map)
+            .bindPopup(`<strong>${data.caption}</strong><br><img src=\"${data.imageURL}\" width=\"150\">`);
+        }
       });
     }
 
-    function nextImage() {
-      if (!imgElements.length) return;
-      index = (index + 1) % totalImages;
-      showImage(index);
-    }
-
-    function prevImage() {
-      if (!imgElements.length) return;
-      index = (index - 1 + totalImages) % totalImages;
-      showImage(index);
-    }
-
-    document.getElementById("nextBtn").addEventListener("click", nextImage);
-    document.getElementById("prevBtn").addEventListener("click", prevImage);
-    setInterval(() => { if (totalImages > 0) nextImage(); }, 5000);
-
-    loadGalleryImages();
-
-    // Chonk Counter (simulated)
-    const chonkCount = document.getElementById("chonkCount");
-    let count = Math.floor(Math.random() * 1000) + 1000;
-    chonkCount.textContent = count.toLocaleString();
-
-    setInterval(() => {
-      count += Math.floor(Math.random() * 3);
-      chonkCount.textContent = count.toLocaleString();
-    }, 4000);
-
-    // Leaflet Map
-    const map = L.map('chonkMap').setView([35.3398, 25.1333], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-    }).addTo(map);
-
-    const sightings = [
-      {
-        coords: [35.3398, 25.1333],
-        message: '🐈‍⬛ Chonkus seen napping near Heraklion port',
-      },
-      {
-        coords: [35.2016, 24.9430],
-        message: '🍖 Chonkus spotted near a souvlaki stand in Rethymno',
-      },
-      {
-        coords: [35.5141, 24.0186],
-        message: '🧿 Mysterious late-night loaf in Chania alley',
-      },
-    ];
-
-    sightings.forEach(({ coords, message }) => {
-      L.marker(coords).addTo(map).bindPopup(message);
-    });
+    loadChonkusPins();
   </script>
+
 </body>
 </html>

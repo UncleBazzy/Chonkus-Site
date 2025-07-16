@@ -67,6 +67,7 @@ const analytics = getAnalytics(app);
   </footer>
 
 <script>
+  const db = firebase.firestore();
   const form = document.getElementById('reviewForm');
   const list = document.getElementById('reviewsList');
 
@@ -76,18 +77,14 @@ const analytics = getAnalytics(app);
     const review = form.review.value.trim();
     if (!name || !review) return;
 
-    await firebase.firestore().collection("reviews").add({ name, review, timestamp: new Date() });
+    await db.collection("reviews").add({ name, review, timestamp: new Date() });
 
     form.reset();
     loadReviews(); // Refresh list
   });
 
   async function loadReviews() {
-    const snapshot = await firebase.firestore()
-      .collection("reviews")
-      .orderBy("timestamp", "desc")
-      .get();
-
+    const snapshot = await db.collection("reviews").orderBy("timestamp", "desc").get();
     list.innerHTML = '';
     snapshot.forEach(doc => {
       const data = doc.data();

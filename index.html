@@ -63,6 +63,36 @@
       margin: 40px auto;
       border-radius: 12px;
     }
+    #previewImage {
+      max-width: 100%;
+      display: none;
+      margin-bottom: 10px;
+    }
+    #chonkGallery {
+      max-width: 800px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .gallery-item {
+      width: 150px;
+      text-align: center;
+      background: white;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+    .gallery-item img {
+      width: 100%;
+      border-radius: 6px;
+    }
+    .gallery-item p {
+      font-size: 0.9rem;
+      margin-top: 6px;
+      color: #003366;
+    }
   </style>
 </head>
 <body>
@@ -72,7 +102,7 @@
       <p>The fat cat from Crete has gone global. Share sightings, tales, and join our growing cult of Chonkus.</p>
     </header>
 
-      <!-- 🐈 Intro Section -->
+    <!-- 🐈 Intro Section -->
     <section class="intro">
       <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
@@ -86,41 +116,67 @@
       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">Chonkus on Google Maps</a>
     </section>
 
-<section>
-  <h2>📷 Upload Your Own Chonkus</h2>
-  <form id="uploadForm">
-        <img id="previewImage" style="max-width: 100%; display: none; margin-bottom: 10px;" />
-    <input type="file" id="chonkImage" accept="image/*" required><br><br>
-    <input type="text" id="caption" placeholder="Enter a caption..." required><br><br>
-    <button type="submit">Submit</button>
-    <p id="uploadStatus"></p>
-  </form>
-</section>
+    <section>
+      <h2>📷 Upload Your Chonkus</h2>
+      <form id="uploadForm">
+        <img id="previewImage" />
+        <input type="file" id="chonkImage" accept="image/*" required><br><br>
+        <input type="text" id="caption" placeholder="Enter a caption..." required><br><br>
+        <button type="submit">Submit</button>
+        <p id="uploadStatus"></p>
+      </form>
+    </section>
 
+    <section>
+      <h2>📍 Chonkus Sightings Map</h2>
+      <div id="chonkMap"></div>
+    </section>
+
+    <section>
+      <h2>🖼️ Gallery of Uploaded Chonkus</h2>
+      <div id="chonkGallery"></div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script type="module">
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+    import L from 'https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
-  authDomain: "chonkus-maximus.firebaseapp.com",
-  projectId: "chonkus-maximus",
-  storageBucket: "chonkus-maximus.firebasestorage.app",
-  messagingSenderId: "292580079657",
-  appId: "1:292580079657:web:9c86c002b06a337b108438",
-  measurementId: "G-M8EQFJ2SKH"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
+      authDomain: "chonkus-maximus.firebaseapp.com",
+      projectId: "chonkus-maximus",
+      storageBucket: "chonkus-maximus.firebasestorage.app",
+      messagingSenderId: "292580079657",
+      appId: "1:292580079657:web:9c86c002b06a337b108438"
+      measurementId: "G-M8EQFJ2SKH"
+    };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
     const form = document.getElementById('uploadForm');
     const status = document.getElementById('uploadStatus');
+    const preview = document.getElementById('previewImage');
+    const imageInput = document.getElementById('chonkImage');
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+      }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const file = document.getElementById('chonkImage').files[0];
+      const file = imageInput.files[0];
       const caption = document.getElementById('caption').value;
 
       if (file.size > 5 * 1024 * 1024) {
@@ -152,19 +208,7 @@ const analytics = getAnalytics(app);
         form.reset();
         preview.style.display = 'none';
         confetti();
-        loadChonkusPins();
-
-    const imageInput = document.getElementById('chonkImage');
-    const preview = document.getElementById('previewImage');
-    imageInput.addEventListener('change', () => {
-      const file = imageInput.files[0];
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = 'block';
-      }
-    });
-        form.reset();
-        loadChonkusPins();
+        await loadAllChonkus();
       } catch (err) {
         console.error(err);
         status.textContent = "❌ Upload failed.";
@@ -188,8 +232,35 @@ const analytics = getAnalytics(app);
       });
     }
 
-    loadChonkusPins();
+    async function loadChonkusGallery() {
+      const gallery = document.getElementById('chonkGallery');
+      gallery.innerHTML = ''; // Clear current gallery
+      const snapshot = await getDocs(collection(db, "chonks"));
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.imageURL) {
+          const container = document.createElement('div');
+          container.className = 'gallery-item';
+
+          const img = document.createElement('img');
+          img.src = data.imageURL;
+
+          const caption = document.createElement('p');
+          caption.textContent = data.caption || '';
+
+          container.appendChild(img);
+          container.appendChild(caption);
+          gallery.appendChild(container);
+        }
+      });
+    }
+
+    async function loadAllChonkus() {
+      await loadChonkusPins();
+      await loadChonkusGallery();
+    }
+
+    loadAllChonkus();
   </script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>

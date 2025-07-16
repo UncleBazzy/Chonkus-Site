@@ -6,67 +6,6 @@
   <title>Chonkus Maximus</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cat Tracker</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #f9f9f9;
-      overflow: hidden;
-      cursor: none; /* Optional: hide cursor for immersion */
-    }
-
-    .cat {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      background-image: Chonkus Bonk style.jpeg;
-      background-size: cover;
-      pointer-events: none;
-      transition: transform 0.1s linear;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="cat" id="cat"></div>
-
-  <script>
-    const cat = document.getElementById("cat");
-
-    let mouseX = 0;
-    let mouseY = 0;
-
-    document.addEventListener("mousemove", e => {
-      mouseX = e.clientX - 40; // Center the cat image
-      mouseY = e.clientY - 40;
-    });
-
-    function animateCat() {
-      const currentX = parseFloat(cat.style.left) || 0;
-      const currentY = parseFloat(cat.style.top) || 0;
-
-      const dx = mouseX - currentX;
-      const dy = mouseY - currentY;
-
-      cat.style.left = currentX + dx * 0.1 + "px";
-      cat.style.top = currentY + dy * 0.1 + "px";
-
-      requestAnimationFrame(animateCat);
-    }
-
-    animateCat();
-  </script>
-
-</body>
-</html>
-
-
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-RXf+QSDCUQs6x1R12vL+ztd5G9SnA1y5l59s2T1vQkCJr9jw5xXH3oKXW0T+rEKqv5aRy5IVC3Pw7Y9rwA5iQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>

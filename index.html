@@ -1,11 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Hub</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4faff;
+      color: #003366;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #336699;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #003366;
+      margin: 40px 0 20px;
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 30px;
+    }
+
+    a.button {
+      display: block;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #0056b3;
+    }
+
+    .gallery-container {
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery-fade {
+      position: relative;
+      height: 280px;
+    }
+
+    .gallery-fade img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      background-color: #fff;
+      padding: 10px;
+    }
+
+    .gallery-fade img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .gallery-button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      pointer-events: all;
+    }
+
+    .gallery-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
+</head>
 <body>
 
   <header>
-    <h1>Welcome to the Chonkus Maximus Community!</h1>
+    <h1>Welcome to Our Community</h1>
     <p>Connect with us across platforms</p>
   </header>
 
-  <!-- 🔗 Links Section FIRST -->
+  <!-- 🔗 Links Section -->
   <section class="link-grid">
     <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
     <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
@@ -14,14 +144,18 @@
     <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
   </section>
 
-  <!-- 🖼️ Gallery Section SECOND -->
-  <div class="gallery-container">
-    <div class="gallery-images" id="galleryImages"></div>
-    <div class="gallery-controls">
-      <button class="gallery-button" id="prevBtn">&#10094;</button>
-      <button class="gallery-button" id="nextBtn">&#10095;</button>
+  <!-- 🖼️ Gallery Section -->
+  <section style="margin-top: 50px; text-align: center;">
+    <h2>📸 Latest Chonks</h2>
+
+    <div class="gallery-container">
+      <div class="gallery-fade" id="galleryImages"></div>
+      <div class="gallery-controls">
+        <button class="gallery-button" id="prevBtn">&#10094;</button>
+        <button class="gallery-button" id="nextBtn">&#10095;</button>
+      </div>
     </div>
-  </div>
+  </section>
 
   <footer>
     &copy; 2025 Your Community. All rights reserved.
@@ -31,8 +165,8 @@
     const galleryImages = document.getElementById("galleryImages");
     let index = 0;
     let totalImages = 0;
+    let imgElements = [];
 
-    // Fetch images from GitHub
     async function loadGalleryImages() {
       try {
         const response = await fetch("https://api.github.com/repos/UncleBazzy/Chonkus-Site/contents/images");
@@ -40,13 +174,16 @@
         const imageFiles = files.filter(file =>
           file.type === "file" && /\.(jpe?g|png|gif)$/i.test(file.name)
         );
+
         totalImages = imageFiles.length;
 
-        imageFiles.forEach(file => {
+        imageFiles.forEach((file, i) => {
           const img = document.createElement("img");
           img.src = file.download_url;
           img.alt = file.name;
+          if (i === 0) img.classList.add("active");
           galleryImages.appendChild(img);
+          imgElements.push(img);
         });
       } catch (err) {
         console.error("Error loading gallery images:", err);
@@ -54,27 +191,29 @@
     }
 
     function showImage(i) {
-      galleryImages.style.transform = `translateX(-${i * 100}%)`;
+      imgElements.forEach((img, idx) => {
+        img.classList.toggle("active", idx === i);
+      });
     }
 
     function nextImage() {
+      if (!imgElements.length) return;
       index = (index + 1) % totalImages;
       showImage(index);
     }
 
     function prevImage() {
+      if (!imgElements.length) return;
       index = (index - 1 + totalImages) % totalImages;
       showImage(index);
     }
 
     document.getElementById("nextBtn").addEventListener("click", nextImage);
     document.getElementById("prevBtn").addEventListener("click", prevImage);
-
-    setInterval(() => {
-      if (totalImages > 0) nextImage();
-    }, 5000);
+    setInterval(() => { if (totalImages > 0) nextImage(); }, 5000);
 
     loadGalleryImages();
   </script>
 
 </body>
+</html>

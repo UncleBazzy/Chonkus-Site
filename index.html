@@ -8,13 +8,22 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4faff;
+      background: url('https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/13.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #003366;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      justify-content: center;
+      min-height: 100vh;
       padding: 40px 20px;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85); /* soft white overlay */
+      border-radius: 12px;
+      padding: 40px 20px;
+      width: 100%;
+      max-width: 1000px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
 
     header {
@@ -43,7 +52,7 @@
       gap: 20px;
       width: 100%;
       max-width: 800px;
-      margin-top: 30px;
+      margin: 0 auto;
     }
 
     a.button {
@@ -124,42 +133,46 @@
     footer {
       margin-top: 60px;
       font-size: 0.9rem;
-      color: #999;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to the Chonkus Maximus Community!</h1>
-    <p>The most majestic chonk in feline history. Chonkus Maximus is not just a cat—he's a lifestyle. Known for his regal loafing and peerless chonkitude, he inspires fans worldwide.</p>
-  </header>
+  <div class="overlay">
+    <header>
+      <h1>Welcome to Our Community</h1>
+      <p>Connect with us across platforms</p>
+    </header>
 
-  <!-- 🔗 Links Section -->
-  <section class="link-grid">
-    <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
-    <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
-    <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">📈 Dexscreener</a>
-    <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
-    <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
-  </section>
+    <!-- 🔗 Links Section -->
+    <section class="link-grid">
+      <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
+      <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
+      <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">📈 Dexscreener</a>
+      <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
+      <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
+      <a class="button" href="https://https://letsbonk.fun/" target="_blank">Let's Bonk.fun</a>
 
-  <!-- 🖼️ Gallery Section -->
-  <section style="margin-top: 50px; text-align: center;">
-    <h2>📸 Latest Chonks</h2>
+    </section>
 
-    <div class="gallery-container">
-      <div class="gallery-fade" id="galleryImages"></div>
-      <div class="gallery-controls">
-        <button class="gallery-button" id="prevBtn">&#10094;</button>
-        <button class="gallery-button" id="nextBtn">&#10095;</button>
+    <!-- 🖼️ Gallery Section -->
+    <section style="margin-top: 50px; text-align: center;">
+      <h2>📸 Latest Chonks</h2>
+
+      <div class="gallery-container">
+        <div class="gallery-fade" id="galleryImages"></div>
+        <div class="gallery-controls">
+          <button class="gallery-button" id="prevBtn">&#10094;</button>
+          <button class="gallery-button" id="nextBtn">&#10095;</button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    &copy; 2025 Your Community. All rights reserved.
-  </footer>
+    <footer>
+      &copy; 2025 Your Community. All rights reserved.
+    </footer>
+  </div>
 
   <script>
     const galleryImages = document.getElementById("galleryImages");

@@ -82,34 +82,43 @@
     const spinner = document.getElementById('spinner');
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  e.preventDefault();
 
-      // Validate reCAPTCHA
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        alert("Please complete the reCAPTCHA.");
-        return;
-      }
+  // Validate reCAPTCHA
+  const recaptchaResponse = grecaptcha.getResponse();
+  if (!recaptchaResponse) {
+    alert("Please complete the reCAPTCHA.");
+    return;
+  }
 
-      const name = form.name.value.trim();
-      const review = form.review.value.trim();
-      if (!name || !review) return;
+  const name = form.name.value.trim();
+  const review = form.review.value.trim();
+  if (!name || !review) return;
 
-      try {
-        await addDoc(collection(db, "reviews"), {
-          name,
-          review,
-          timestamp: new Date()
-          // Optionally: You can send recaptchaResponse token to backend for verification
-        });
-        form.reset();
-        grecaptcha.reset(); // Reset reCAPTCHA widget
-        loadReviews();
-      } catch (err) {
-        alert("Failed to submit review. Please try again.");
-        console.error(err);
-      }
+  try {
+    const response = await fetch('https://us-central1-chonkusmaximus.cloudfunctions.net/submitReview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        review,
+        recaptchaToken: recaptchaResponse
+      })
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to submit review");
+    }
+
+    form.reset();
+    grecaptcha.reset(); // Reset reCAPTCHA widget
+    loadReviews(); // reload reviews from Firestore (same as before)
+  } catch (err) {
+    alert(err.message);
+    console.error(err);
+  }
+});
 
     async function loadReviews() {
       try {

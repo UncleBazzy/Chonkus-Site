@@ -2,93 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chonkus Maximus</title>
+  <title>Reviews of Chonkus Maximus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .gallery-container {
+      max-width: 600px;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-RXf+QSDCUQs6x1R12vL+ztd5G9SnA1y5l59s2T1vQkCJr9jw5xXH3oKXW0T+rEKqv5aRy5IVC3Pw7Y9rwA5iQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    .gallery-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .gallery-images img {
+      min-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .gallery-button {
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+    }
+
+    .gallery-button:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>🐱 Chonkus Maximus</h1>
-    <p>The most majestic chonk in feline history.</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
-        <i class="fab fa-telegram-plane"></i> Telegram
-      </a>
-      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
-        <i class="fab fa-x-twitter"></i> X Community
-      </a>
-    </nav>
-  </header>
 
-  <main>
-    <section>
-      <div class="float-icon heart">❤️</div>
-      <div class="float-icon wow">❗️</div>
-      <img src="chonkus.jpg" alt="Chonkus Maximus in full glory" class="main-img"/>
-      <h2>About Chonkus</h2>
-      <p>Chonkus Maximus is not just a cat—he's a lifestyle. Known for his regal loafing and peerless chonkitude, he inspires fans worldwide.</p>
-    </section>
+  <h1>Welcome to Chonkus Maximus Reviews</h1>
 
-    <section>
-      <h2>📜 Token Info</h2>
-      <p><strong>Contract Address (Solana):</strong></p>
-      <code id="contract-address">erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b</code>
-      <button onclick="copyAddress()">Copy</button>
+  <!-- 🖼️ Rotating Image Gallery -->
+  <div class="gallery-container">
+    <div class="gallery-images" id="galleryImages">
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic1.jpg" alt="Chonkus Maximus 1" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic2.jpg" alt="Chonkus Maximus 2" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic3.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic4.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic5.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic6.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic7.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic8.jpg" alt="Chonkus Maximus 3" />
+      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus-pics/pic9.jpg" alt="Chonkus Maximus 3" />
+    </div>
+    <div class="gallery-controls">
+      <button class="gallery-button" id="prevBtn">&#10094;</button>
+      <button class="gallery-button" id="nextBtn">&#10095;</button>
+    </div>
+  </div>
 
-      <p style="margin-top: 1rem;">
-        <a href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">
-          <i class="fas fa-chart-line"></i> View on Dexscreener
-        </a>
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Chonkus Maximus Fan Club</p>
-    <p>
-      <a href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">
-        <i class="fab fa-telegram-plane"></i> Join us on Telegram
-      </a>
-      |
-      <a href="https://x.com/i/communities/1943379266932285826" target="_blank">
-        <i class="fab fa-x-twitter"></i> Join the X Community
-      </a>
-    </p>
-  </footer>
-
-  <!-- Copy to clipboard script -->
   <script>
-    function copyAddress() {
-      const addr = document.getElementById('contract-address').textContent;
-      navigator.clipboard.writeText(addr).then(() => {
-        alert("Contract address copied to clipboard!");
-      });
+    const images = document.getElementById("galleryImages");
+    const totalImages = images.children.length;
+    let index = 0;
+
+    function showImage(i) {
+      images.style.transform = `translateX(-${i * 100}%)`;
     }
+
+    function nextImage() {
+      index = (index + 1) % totalImages;
+      showImage(index);
+    }
+
+    function prevImage() {
+      index = (index - 1 + totalImages) % totalImages;
+      showImage(index);
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", nextImage);
+    document.getElementById("prevBtn").addEventListener("click", prevImage);
+
+    // Auto-rotate every 5 seconds
+    setInterval(nextImage, 5000);
   </script>
 
-  <!-- Firebase Initialization -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
-      authDomain: "chonkus-maximus.firebaseapp.com",
-      projectId: "chonkus-maximus",
-      storageBucket: "chonkus-maximus.appspot.com",
-      messagingSenderId: "292580079657",
-      appId: "1:292580079657:web:9c86c002b06a337b108438",
-      measurementId: "G-M8EQFJ2SKH"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
 </body>
 </html>

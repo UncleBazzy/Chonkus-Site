@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 admin.initializeApp();
 const db = admin.firestore();
 
-const RECAPTCHA_SECRET = "YOUR_RECAPTCHA_SECRET_KEY"; // Replace with your secret
+const RECAPTCHA_SECRET = 6LfVwYQrAAAAAAvWc3KDy65EvDkn-MwLIrMiZyb3; // Replace with your secret
 
 exports.submitReview = functions.https.onRequest(async (req, res) => {
   if (req.method !== "POST") {

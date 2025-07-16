@@ -23,6 +23,45 @@ const analytics = getAnalytics(app);
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+  <script>
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+  const form = document.getElementById('photoForm');
+  const gallery = document.getElementById('photoGallery');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const file = document.getElementById('photoInput').files[0];
+    if (!file) return;
+
+    const ref = storage.ref('images/' + Date.now() + '_' + file.name);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+
+    await db.collection("gallery").add({
+      imageUrl: url,
+      timestamp: new Date()
+    });
+
+    loadGallery();
+  });
+
+  async function loadGallery() {
+    const snapshot = await db.collection("gallery").orderBy("timestamp", "desc").get();
+    gallery.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const img = document.createElement('img');
+      img.src = data.imageUrl;
+      img.alt = "Fan photo of Chonkus";
+      img.classList.add("fan-photo");
+      gallery.appendChild(img);
+    });
+  }
+
+  loadGallery();
+</script>
+
 <body>
   <header>
     <h1>Chonkus Gallery</h1>
@@ -89,43 +128,4 @@ const analytics = getAnalytics(app);
   </script>
 </body>
 </html>
-<script>
-  const form = document.getElementById('photoForm');
-  const gallery = document.getElementById('photoGallery');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const file = document.getElementById('photoInput').files[0];
-    if (!file) return;
-
-    const storageRef = firebase.storage().ref('images/' + Date.now() + '_' + file.name);
-    await storageRef.put(file);
-    const url = await storageRef.getDownloadURL();
-
-    await firebase.firestore().collection("gallery").add({
-      imageUrl: url,
-      timestamp: new Date()
-    });
-
-    loadGallery();
-  });
-
-  async function loadGallery() {
-    const snapshot = await firebase.firestore()
-      .collection("gallery")
-      .orderBy("timestamp", "desc")
-      .get();
-
-    gallery.innerHTML = '';
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const img = document.createElement('img');
-      img.src = data.imageUrl;
-      img.alt = "Fan photo of Chonkus";
-      img.classList.add("fan-photo");
-      gallery.appendChild(img);
-    });
-  }
-
-  loadGallery();
-</script>

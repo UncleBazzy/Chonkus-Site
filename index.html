@@ -50,6 +50,13 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    form input, form button {
+      width: 90%;
+      max-width: 400px;
+      margin: 10px auto;
+      display: block;
+      font-size: 1rem;
+    }
     #chonkMap {
       height: 400px;
       max-width: 800px;
@@ -65,12 +72,6 @@
       <p>The fat cat from Crete has gone global. Share sightings, tales, and join our growing cult of Chonkus.</p>
     </header>
 
-    <!-- 🐈 Intro Section -->
-    <section class="intro">
-      <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
-      <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
-    </section>
-
     <section class="link-grid">
       <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">Join Telegram</a>
       <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">Join X Community</a>
@@ -79,7 +80,18 @@
       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">Chonkus on Google Maps</a>
     </section>
 
-    <section>
+<section>
+  <h2>📷 Upload Your Own Chonkus</h2>
+  <form id="uploadForm">
+        <img id="previewImage" style="max-width: 100%; display: none; margin-bottom: 10px;" />
+    <input type="file" id="chonkImage" accept="image/*" required><br><br>
+    <input type="text" id="caption" placeholder="Enter a caption..." required><br><br>
+    <button type="submit">Submit</button>
+    <p id="uploadStatus"></p>
+  </form>
+</section>
+
+$1
       <h2>📷 Upload Your Chonkus</h2>
       <form id="uploadForm">
         <input type="file" id="chonkImage" accept="image/*" required><br><br>
@@ -122,6 +134,11 @@
       const file = document.getElementById('chonkImage').files[0];
       const caption = document.getElementById('caption').value;
 
+      if (file.size > 5 * 1024 * 1024) {
+        status.textContent = "❌ Image is too large (max 5MB).";
+        return;
+      }
+
       status.textContent = "Uploading...";
       try {
         const fileRef = ref(storage, `uploads/${Date.now()}_${file.name}`);
@@ -143,6 +160,20 @@
         });
 
         status.textContent = "✅ Uploaded successfully!";
+        form.reset();
+        preview.style.display = 'none';
+        confetti();
+        loadChonkusPins();
+
+    const imageInput = document.getElementById('chonkImage');
+    const preview = document.getElementById('previewImage');
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+      }
+    });
         form.reset();
         loadChonkusPins();
       } catch (err) {
@@ -170,5 +201,6 @@
 
     loadChonkusPins();
   </script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>

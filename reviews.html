@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-  
-const firebaseConfig = {
-  apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
-  authDomain: "chonkus-maximus.firebaseapp.com",
-  projectId: "chonkus-maximus",
-  storageBucket: "chonkus-maximus.firebasestorage.app",
-  messagingSenderId: "292580079657",
-  appId: "1:292580079657:web:9c86c002b06a337b108438",
-  measurementId: "G-M8EQFJ2SKH"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
   <meta charset="UTF-8" />
   <title>Reviews of Chonkus Maximus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- Font Awesome -->
@@ -42,13 +28,19 @@ const analytics = getAnalytics(app);
   <main>
     <h2>Leave a Review</h2>
     <form id="reviewForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <textarea name="review" placeholder="What do you think of Chonkus?" required></textarea>
+      <label for="name">Your Name</label>
+      <input id="name" type="text" name="name" placeholder="Your Name" required />
+
+      <label for="review">What do you think of Chonkus?</label>
+      <textarea id="review" name="review" placeholder="Write your review..." required></textarea>
+
       <button type="submit">Submit</button>
     </form>
 
+    <div id="spinner" style="display:none; text-align:center; margin:1rem;">Loading reviews...</div>
+
     <h2>What Others Say</h2>
-    <ul id="reviewsList">
+    <ul id="reviewsList" aria-live="polite">
       <!-- Reviews will appear here -->
     </ul>
   </main>
@@ -66,36 +58,84 @@ const analytics = getAnalytics(app);
     </p>
   </footer>
 
-<script>
-  const db = firebase.firestore();
-  const form = document.getElementById('reviewForm');
-  const list = document.getElementById('reviewsList');
+  <!-- Firebase & App Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = form.name.value.trim();
-    const review = form.review.value.trim();
-    if (!name || !review) return;
+    const firebaseConfig = {
+      apiKey: "AIzaSyCk19Oo6ZfaMUS34aJl9747pu_1BjA1G14",
+      authDomain: "chonkus-maximus.firebaseapp.com",
+      projectId: "chonkus-maximus",
+      storageBucket: "chonkus-maximus.firebasestorage.app",
+      messagingSenderId: "292580079657",
+      appId: "1:292580079657:web:9c86c002b06a337b108438",
+      measurementId: "G-M8EQFJ2SKH"
+    };
 
-    await db.collection("reviews").add({ name, review, timestamp: new Date() });
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
-    form.reset();
-    loadReviews(); // Refresh list
-  });
+    const form = document.getElementById('reviewForm');
+    const list = document.getElementById('reviewsList');
+    const spinner = document.getElementById('spinner');
 
-  async function loadReviews() {
-    const snapshot = await db.collection("reviews").orderBy("timestamp", "desc").get();
-    list.innerHTML = '';
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const li = document.createElement('li');
-      li.textContent = `${data.name}: "${data.review}"`;
-      list.appendChild(li);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const review = form.review.value.trim();
+      if (!name || !review) return;
+
+      try {
+        await addDoc(collection(db, "reviews"), {
+          name,
+          review,
+          timestamp: new Date()
+        });
+        form.reset();
+        loadReviews();
+      } catch (err) {
+        alert("Failed to submit review. Please try again.");
+        console.error(err);
+      }
     });
-  }
 
-  loadReviews();
-</script>
+    async function loadReviews() {
+      try {
+        spinner.style.display = 'block';
+        const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
 
+        list.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const li = document.createElement('li');
+          const date = data.timestamp?.toDate?.() || new Date();
+          li.textContent = `${data.name} (${date.toLocaleString()}): "${data.review}"`;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        list.innerHTML = '<li>Failed to load reviews.</li>';
+        console.error(err);
+      } finally {
+        spinner.style.display = 'none';
+      }
+    }
+
+    loadReviews();
+  </script>
+
+  <noscript>
+    <p style="text-align:center; color:red;">JavaScript is required to view and submit reviews.</p>
+  </noscript>
 </body>
 </html>

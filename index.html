@@ -2,99 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Hub</title>
   <style>
-    .gallery-container {
-      max-width: 600px;
-      margin: 40px auto;
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    .gallery-images {
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4faff;
+      color: #003366;
       display: flex;
-      transition: transform 0.5s ease-in-out;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #336699;
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
       width: 100%;
+      max-width: 800px;
+      margin-top: 30px;
     }
 
-    .gallery-images img {
-      min-width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-
-    .gallery-controls {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 10px;
-    }
-
-    .gallery-button {
-      background-color: rgba(0,0,0,0.5);
+    a.button {
+      display: block;
+      background-color: #007BFF;
       color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      font-size: 18px;
-      border-radius: 50%;
+      text-decoration: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
     }
 
-    .gallery-button:hover {
-      background-color: rgba(0,0,0,0.8);
+    a.button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #999;
     }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to Chonkus Maximus Reviews</h1>
+  <header>
+    <h1>Welcome to Our Community</h1>
+    <p>Connect with us across platforms</p>
+  </header>
 
-  <!-- 🖼️ Rotating Image Gallery -->
-  <div class="gallery-container">
-    <div class="gallery-images" id="galleryImages">
-      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus pics/1.jpg" alt="Chonkus Maximus 1" />
-      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus pics/2.jpg" alt="Chonkus Maximus 2" />
-      <img src="https://raw.githubusercontent.com/bazcrowley/chonkus-site/main/Chonkus pics/3.jpg" alt="Chonkus Maximus 3" />
-    </div>
-    <div class="gallery-controls">
-      <button class="gallery-button" id="prevBtn">&#10094;</button>
-      <button class="gallery-button" id="nextBtn">&#10095;</button>
-    </div>
-  </div>
+  <section class="link-grid">
+    <a class="button" href="https://t.me/yourTelegramGroup" target="_blank">Join Telegram</a>
+    <a class="button" href="https://twitter.com/i/communities/yourCommunityID" target="_blank">Visit X Community</a>
+    <a class="button" href="https://dexscreener.com/yourTokenPage" target="_blank">Dexscreener Stats</a>
+    <a class="button" href="https://www.tiktok.com/@yourTikTokUsername" target="_blank">Follow on TikTok</a>
+    <a class="button" href="https://maps.google.com/?q=Your+Location+Here" target="_blank">View on Google Maps</a>
+  </section>
 
-  <script>
-    const images = document.getElementById("galleryImages");
-    const totalImages = images.children.length;
-    let index = 0;
-
-    function showImage(i) {
-      images.style.transform = `translateX(-${i * 100}%)`;
-    }
-
-    function nextImage() {
-      index = (index + 1) % totalImages;
-      showImage(index);
-    }
-
-    function prevImage() {
-      index = (index - 1 + totalImages) % totalImages;
-      showImage(index);
-    }
-
-    document.getElementById("nextBtn").addEventListener("click", nextImage);
-    document.getElementById("prevBtn").addEventListener("click", prevImage);
-
-    // Auto-rotate every 5 seconds
-    setInterval(nextImage, 5000);
-  </script>
+  <footer>
+    &copy; 2025 Your Community. All rights reserved.
+  </footer>
 
 </body>
 </html>
-

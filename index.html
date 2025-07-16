@@ -245,14 +245,17 @@
       </div>
     </div>
 
+    <!-- 🖼️ Gallery Section -->
+<h2>📸 Latest Chonks</h2>
+<div class="gallery-container">...</div>
+
+
     <!-- 📝 Tales of Chonkus Rotator -->
     <section class="story-rotator">
       <h2>📝 Tales of Chonkus</h2>
       <div class="story-text" id="chonkusTale"></div>
     </section>
 
-    <h2>📍 Chonkus Sightings Map</h2>
-    <div id="chonkMap"></div>
 
     <footer>
       &copy; 2025 Your Community. All rights reserved.
@@ -353,20 +356,9 @@
     rotateTales();
     setInterval(rotateTales, 7000);
 
-    // Leaflet Map
-    const map = L.map('chonkMap').setView([35.3398, 25.1333], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
+  
     }).addTo(map);
 
-    const sightings = [
-      { coords: [35.3398, 25.1333], message: '🐈‍⬛ Chonkus seen napping near Heraklion port' },
-      { coords: [35.2016, 24.9430], message: '🍖 Chonkus spotted near souvlaki stand in Rethymno' },
-      { coords: [35.5141, 24.0186], message: '🧿 Mysterious late-night loaf in Chania alley' },
-    ];
-
-    sightings.forEach(({ coords, message }) => {
-      L.marker(coords).addTo(map).bindPopup(message);
     });
   </script>
 </body>

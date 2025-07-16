@@ -40,10 +40,14 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .gallery-images {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 100%;
+    .gallery-images img {
+  min-width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
     }
 
     .gallery-images img {

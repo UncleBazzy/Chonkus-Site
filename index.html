@@ -18,7 +18,7 @@
     }
 
     .overlay {
-      background-color: rgba(255, 255, 255, 0.85); /* soft white overlay */
+      background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       padding: 40px 20px;
       width: 100%;
@@ -27,12 +27,30 @@
     }
 
     header {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .flag {
+      display: inline-block;
+      font-size: 2rem;
+      animation: wave 2s infinite ease-in-out;
+      transform-origin: 70% 70%;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(10deg); }
+      50% { transform: rotate(-10deg); }
+      75% { transform: rotate(10deg); }
     }
 
     p {
@@ -68,6 +86,12 @@
 
     a.button:hover {
       background-color: #0056b3;
+    }
+
+    .chonk-counter {
+      margin-top: 30px;
+      font-size: 1.4rem;
+      color: #222;
     }
 
     .gallery-container {
@@ -135,24 +159,42 @@
       font-size: 0.9rem;
       color: #666;
     }
+
+    .intro {
+      max-width: 800px;
+      margin: 20px auto 40px;
+      font-size: 1.1rem;
+      color: #003366;
+    }
   </style>
 </head>
 <body>
 
   <div class="overlay">
     <header>
-      <h1>Welcome to the Chonkus Maximus Community!</h1>
-      <p>Chonkus Maximus is not just a feline, it's a way of life!</p>
+      <h1><span class="flag">🇬🇷</span> Welcome to Our Community <span class="flag">🇬🇷</span></h1>
+      <p>Connect with us across platforms</p>
     </header>
+
+    <!-- 🐈 Intro Section -->
+    <section class="intro">
+      <p><strong>Behold:</strong> <em>Chonkus Maximus</em> — legendary street cat, sunbather, tavern inspector, and undisputed Lord of the Laneways of Crete. With paws like pita bread and a belly that echoes through the mountains, Chonkus has achieved local fame and global meme status — all without leaving his patch of cobblestone real estate.</p>
+      <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
+    </section>
 
     <!-- 🔗 Links Section -->
     <section class="link-grid">
       <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh" target="_blank">💬 Join Telegram</a>
       <a class="button" href="https://x.com/i/communities/1943379266932285826" target="_blank">🐦 X Community</a>
-      <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">📈 Dexscreener</a>
+      <a class="button" href="https://dexscreener.com/solana/erkezshy8o9f85acpg5hhdcj3ccaquwsknqdfydzu53b" target="_blank">🪙 Dexscreener</a>
       <a class="button" href="https://vt.tiktok.com/ZSHgAwK1hjf6v-y6wWo/" target="_blank">🎵 TikTok (9M views!)</a>
       <a class="button" href="https://x.com/ChinggaChonggaa/status/1943395390583435740" target="_blank">📍 View Location (on X)</a>
     </section>
+
+    <!-- 🐈‍⬛ Chonk Counter -->
+    <div class="chonk-counter">
+      🐈‍⬛ Chonk Counter: <span id="chonkCount">0</span>
+    </div>
 
     <!-- 🖼️ Gallery Section -->
     <section style="margin-top: 50px; text-align: center;">
@@ -173,6 +215,7 @@
   </div>
 
   <script>
+    // Gallery Script
     const galleryImages = document.getElementById("galleryImages");
     let index = 0;
     let totalImages = 0;
@@ -224,6 +267,16 @@
     setInterval(() => { if (totalImages > 0) nextImage(); }, 5000);
 
     loadGalleryImages();
+
+    // Chonk Counter (simulated)
+    const chonkCount = document.getElementById("chonkCount");
+    let count = Math.floor(Math.random() * 1000) + 1000;
+    chonkCount.textContent = count.toLocaleString();
+
+    setInterval(() => {
+      count += Math.floor(Math.random() * 3);
+      chonkCount.textContent = count.toLocaleString();
+    }, 4000);
   </script>
 
 </body>

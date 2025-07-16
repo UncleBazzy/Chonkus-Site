@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Community Hub</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-VRmA36kHmBDLQO9evYghMrcWg3eA7UdMkNn4qkY7s7E="
+    crossorigin=""
+  />
+
   <style>
     body {
       margin: 0;
@@ -62,6 +71,7 @@
       font-size: 1.8rem;
       color: #003366;
       margin: 40px 0 20px;
+      text-align: center;
     }
 
     .link-grid {
@@ -92,6 +102,7 @@
       margin-top: 30px;
       font-size: 1.4rem;
       color: #222;
+      text-align: center;
     }
 
     .gallery-container {
@@ -158,6 +169,7 @@
       margin-top: 60px;
       font-size: 0.9rem;
       color: #666;
+      text-align: center;
     }
 
     .intro {
@@ -165,6 +177,16 @@
       margin: 20px auto 40px;
       font-size: 1.1rem;
       color: #003366;
+      text-align: center;
+    }
+
+    #chonkMap {
+      height: 400px;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -172,8 +194,7 @@
 
   <div class="overlay">
     <header>
-      <h1><span class="flag">🇬🇷</span> Welcome to the Chonkus Maximus Community! <span class="flag">🇬🇷</span></h1>
-      <p>Connect with us across platforms!</p>
+      <h1><span class="flag">🇬🇷</span> Welcome to the Chonkus maximus Community! <span class="flag">🇬🇷</span></h1>
     </header>
 
     <!-- 🐈 Intro Section -->
@@ -197,25 +218,33 @@
     </div>
 
     <!-- 🖼️ Gallery Section -->
-    <section style="margin-top: 50px; text-align: center;">
-      <h2>📸 Latest Chonks</h2>
-
-      <div class="gallery-container">
-        <div class="gallery-fade" id="galleryImages"></div>
-        <div class="gallery-controls">
-          <button class="gallery-button" id="prevBtn">&#10094;</button>
-          <button class="gallery-button" id="nextBtn">&#10095;</button>
-        </div>
+    <h2>📸 Latest Chonks</h2>
+    <div class="gallery-container">
+      <div class="gallery-fade" id="galleryImages"></div>
+      <div class="gallery-controls">
+        <button class="gallery-button" id="prevBtn">&#10094;</button>
+        <button class="gallery-button" id="nextBtn">&#10095;</button>
       </div>
-    </section>
+    </div>
+
+    <!-- 🗺️ Map Section -->
+    <h2>📍 Chonkus Sightings Map</h2>
+    <div id="chonkMap"></div>
 
     <footer>
       &copy; 2025 Your Community. All rights reserved.
     </footer>
   </div>
 
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA="
+    crossorigin=""
+  ></script>
+
   <script>
-    // Gallery Script
+    // Gallery Logic
     const galleryImages = document.getElementById("galleryImages");
     let index = 0;
     let totalImages = 0;
@@ -277,7 +306,31 @@
       count += Math.floor(Math.random() * 3);
       chonkCount.textContent = count.toLocaleString();
     }, 4000);
-  </script>
 
+    // Leaflet Map
+    const map = L.map('chonkMap').setView([35.3398, 25.1333], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+
+    const sightings = [
+      {
+        coords: [35.3398, 25.1333],
+        message: '🐈‍⬛ Chonkus seen napping near Heraklion port',
+      },
+      {
+        coords: [35.2016, 24.9430],
+        message: '🍖 Chonkus spotted near a souvlaki stand in Rethymno',
+      },
+      {
+        coords: [35.5141, 24.0186],
+        message: '🧿 Mysterious late-night loaf in Chania alley',
+      },
+    ];
+
+    sightings.forEach(({ coords, message }) => {
+      L.marker(coords).addTo(map).bindPopup(message);
+    });
+  </script>
 </body>
 </html>

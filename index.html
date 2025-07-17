@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Community Hub</title>
 
-  <audio autoplay loop>
   <source src="videoplayback.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
@@ -216,6 +215,12 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    @media (max-width: 480px) {
+  select, button {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+}
   </style>
 </head>
 <body>
@@ -234,8 +239,8 @@
 <div style="text-align: center; margin: 30px 0;">
   <!-- Play Button -->
   <button onclick="playChonkusAnthem()" class="button" style="padding: 15px 25px; font-size: 1rem;">
-    ▶️ Rock out with your Chonk out!
-  </button>
+    <button aria-label="Play Chonkus Anthem">▶️ Rock out with your Chonk out!</button>
+
 
   <!-- Dropdown to Choose Track -->
   <select id="trackSelector" onchange="selectChonkusTrack()" style="padding: 10px; font-size: 1rem; margin-left: 10px;">
@@ -303,10 +308,11 @@
       </div>
     </div>
 
-    <section class="story-rotator">
-      <h2>📝 Tales of Chonkus</h2>
-      <div class="story-text" id="chonkusTale"></div>
-    </section>
+   <section class="story-rotator">
+  <h2>📝 Tales of Chonkus</h2>
+  <div class="story-text" id="chonkusTale"></div>
+  <button onclick="rotateTales()" style="margin-top: 20px; padding: 10px 20px; font-size: 1rem;">🎲 New Tale</button>
+</section>
 
     <section>
       <h2>🎬 Watch Chonkus on YouTube</h2>

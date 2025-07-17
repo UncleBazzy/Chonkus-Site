@@ -315,6 +315,16 @@
 </button>
 
 </section>
+    <section class="fortune-generator" style="text-align:center; margin: 50px auto; max-width: 600px; background: #f0f8ff; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); color: #003366;">
+  <h2>🧞‍♂️ Mystical Chonkus Fortune Generator</h2>
+  <p id="fortuneText" style="font-style: italic; font-size: 1.3rem; min-height: 60px; margin: 20px 0;">
+    Press the button to receive your fortune from Chonkus!
+  </p>
+  <button id="fortuneBtn" style="padding: 12px 25px; font-size: 1.1rem; background:#007BFF; color:#fff; border:none; border-radius:8px; cursor:pointer; transition: background-color 0.3s ease;">
+    🔮 Reveal Your Chonkus Fortune
+  </button>
+</section>
+
 
     <section>
       <h2>🎬 Watch Chonkus on YouTube</h2>
@@ -460,6 +470,7 @@
     });
   });
 </script>
+  
 <script>
   // Existing scripts for gallery, tales rotation, map, etc.
 
@@ -479,6 +490,27 @@
     window.speechSynthesis.speak(utterance);
   });
 </script>
+  const fortunes = [
+  "The gyro you seek is not the gyro you need.",
+  "When the belly rumbles, destiny listens.",
+  "A nap today brings power tomorrow.",
+  "Beware the seagull’s gaze — your fry is not safe.",
+  "Chonkus approves this feast — eat well, friend.",
+  "In shadows, a purr guides the lost.",
+  "The path to greatness is paved with kibble crumbs.",
+  "A sunbeam will find you when you need it most.",
+  "Fish may come and go, but Chonkus endures.",
+  "The fluffier the fur, the deeper the wisdom."
+];
+
+const fortuneBtn = document.getElementById('fortuneBtn');
+const fortuneText = document.getElementById('fortuneText');
+
+fortuneBtn.addEventListener('click', () => {
+  const randomIndex = Math.floor(Math.random() * fortunes.length);
+  fortuneText.textContent = fortunes[randomIndex];
+});
+
 
 </body>
 </html>

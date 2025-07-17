@@ -262,35 +262,34 @@
   const jukebox = document.getElementById('jukebox');
   const shuffleBtn = document.getElementById('shuffleTrack');
   const player = document.getElementById('jukeboxPlayer');
+  const source = player.querySelector('source');
 
   const tracks = {
     opa: {
       name: "Opa Odyssey",
-      src: ""https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3","
+      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3"
     },
     meow: {
       name: "Mystic Meow",
-      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
+      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3"
     },
     souvlaki: {
       name: "Souvlaki Samba",
-      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
+      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3"
     }
   };
 
-  // Function to load and play selected track
   function playTrack(key) {
     if (!tracks[key]) return;
-    player.src = tracks[key].src;
-    player.play();
+    source.src = tracks[key].src;
+    player.load();        // Important to reload the audio element
+    player.play().catch(e => console.log('Playback failed:', e));
   }
 
-  // Change track when dropdown changes
   jukebox.addEventListener('change', () => {
     playTrack(jukebox.value);
   });
 
-  // Shuffle button selects a random track
   shuffleBtn.addEventListener('click', () => {
     const keys = Object.keys(tracks);
     const randomKey = keys[Math.floor(Math.random() * keys.length)];
@@ -298,11 +297,11 @@
     playTrack(randomKey);
   });
 
-  // Optional: auto-load the first track
   window.addEventListener('DOMContentLoaded', () => {
     playTrack(jukebox.value);
   });
 </script>
+
 
     
     <section class="link-grid">

@@ -258,6 +258,7 @@
 </div>
 
 <script>
+
   // 🎧 Array of audio sources (add your own URLs here)
   const tracks = [
    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3",
@@ -283,10 +284,7 @@
     audio.play();
   }
 </script>
-
-
-
-
+    
     <section class="link-grid">
       <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh">💬 Join Telegram</a>
       <a class="button" href="https://x.com/i/communities/1943379266932285826">🐦 X Community</a>
@@ -312,6 +310,10 @@
   <h2>📝 Tales of Chonkus</h2>
   <div class="story-text" id="chonkusTale"></div>
   <button onclick="rotateTales()" style="margin-top: 20px; padding: 10px 20px; font-size: 1rem;">🎲 New Tale</button>
+     <button id="hearTaleBtn" style="margin-top: 10px; padding: 10px 20px; font-size: 1rem;">
+  🔊 Hear the Tale
+</button>
+
 </section>
 
     <section>
@@ -456,6 +458,25 @@
       // Autoplay failed — wait for user
       console.log('Autoplay blocked until user interaction.');
     });
+  });
+</script>
+<script>
+  // Existing scripts for gallery, tales rotation, map, etc.
+
+  // Add the hearTaleBtn code here:
+  const hearTaleBtn = document.getElementById('hearTaleBtn');
+
+  hearTaleBtn.addEventListener('click', () => {
+    const taleText = document.getElementById('chonkusTale').textContent;
+    if (!taleText) return;
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(taleText);
+    utterance.pitch = 1;
+    utterance.rate = 1;
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
   });
 </script>
 

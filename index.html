@@ -313,9 +313,63 @@
       <a class="button" href="https://maps.app.goo.gl/qiykGBqUQPeET4vr8">📍 View Location (on Google Maps)</a>
     </section>
 
-    <div class="chonk-counter">
-      🐈‍⬛ Chonk Counter: <span id="chonkCount">0</span>
-    </div>
+    <section style="max-width: 700px; margin: 40px auto; background: #f9f5e7; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); color: #333;">
+  <h2>🧾 Taverna Review Board</h2>
+  
+  <form id="reviewForm" style="margin-bottom: 20px;">
+    <textarea id="reviewInput" rows="3" placeholder="Write your funny fake review here..." style="width: 100%; padding: 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc;" required></textarea>
+    <button type="submit" style="margin-top: 10px; padding: 12px 25px; font-size: 1rem; background: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer;">
+      Submit Review
+    </button>
+  </form>
+
+  <ul id="reviewsList" style="list-style: none; padding-left: 0; max-height: 250px; overflow-y: auto;">
+    <!-- Reviews will appear here -->
+  </ul>
+</section>
+<script>
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewInput = document.getElementById('reviewInput');
+  const reviewsList = document.getElementById('reviewsList');
+
+  // Sample starter reviews
+  const starterReviews = [
+    "Came for the gyros, stayed for Chonkus’ judgmental stare.",
+    "Five stars! Chonkus approved my souvlaki.",
+    "Best nap spot and people-watching lounge on the island.",
+    "If you don’t pet Chonkus, did you even visit?",
+    "Ordered a salad, got a belly rub instead. No complaints."
+  ];
+
+  // Load starter reviews initially
+  function loadStarterReviews() {
+    starterReviews.forEach(text => addReview(text));
+  }
+
+  // Add a review to the list
+  function addReview(text) {
+    const li = document.createElement('li');
+    li.textContent = text;
+    li.style.padding = '8px 12px';
+    li.style.borderBottom = '1px solid #ddd';
+    reviewsList.appendChild(li);
+  }
+
+  // Handle form submit
+  reviewForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const newReview = reviewInput.value.trim();
+    if (newReview) {
+      addReview(newReview);
+      reviewInput.value = '';
+      reviewInput.focus();
+    }
+  });
+
+  loadStarterReviews();
+</script>
+
 
     <h2>📸 Latest Chonks</h2>
     <div class="gallery-container">

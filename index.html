@@ -487,6 +487,29 @@
     utterance.lang = 'en-US';
     window.speechSynthesis.speak(utterance);
   });
+
+    <script>
+    const fortunes = [
+      "The gyro you seek is not the gyro you need.",
+      "When the belly rumbles, destiny listens.",
+      "A nap today brings power tomorrow.",
+      "Beware the seagull’s gaze — your fry is not safe.",
+      "Chonkus approves this feast — eat well, friend.",
+      "In shadows, a purr guides the lost.",
+      "The path to greatness is paved with kibble crumbs.",
+      "A sunbeam will find you when you need it most.",
+      "Fish may come and go, but Chonkus endures.",
+      "The fluffier the fur, the deeper the wisdom."
+    ];
+
+    const fortuneBtn = document.getElementById('fortuneBtn');
+    const fortuneText = document.getElementById('fortuneText');
+
+    fortuneBtn.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * fortunes.length);
+      fortuneText.textContent = fortunes[randomIndex];
+    });
+  </script>
   
 </body>
 </html>

@@ -230,11 +230,18 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
-    <button onclick="document.getElementById('bgMusic').play()">▶️ Play Chonkus Anthem</button>
+    <!-- 🔊 Chonkus Anthem Player -->
+<div style="text-align: center; margin: 30px 0;">
+  <button onclick="playChonkusAnthem()" class="button" style="padding: 15px 25px; font-size: 1rem;">
+    ▶️ Play Chonkus Anthem
+  </button>
 
-<audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgMusic" autoplay muted loop>
+    <source src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
 
     <section class="link-grid">
       <a class="button" href="#">💬 Join Telegram</a>
@@ -376,5 +383,23 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
   </script>
+  <script>
+  const bgMusic = document.getElementById('bgMusic');
+
+  // Unmute & play after user interaction (required for many browsers)
+  function playChonkusAnthem() {
+    bgMusic.muted = false;
+    bgMusic.play();
+  }
+
+  // Attempt autoplay on load (muted)
+  window.addEventListener('DOMContentLoaded', () => {
+    bgMusic.play().catch(err => {
+      // Autoplay failed — wait for user
+      console.log('Autoplay blocked until user interaction.');
+    });
+  });
+</script>
+
 </body>
 </html>

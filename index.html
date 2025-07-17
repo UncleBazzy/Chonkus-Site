@@ -235,55 +235,75 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
-    <!-- 🔊 Chonkus Anthem Player with Playlist -->
-<div style="text-align: center; margin: 30px 0;">
-  <!-- Play Button -->
-  <button onclick="playChonkusAnthem()" class="button" style="padding: 15px 25px; font-size: 1rem;">
-    <button aria-label="Play Chonkus Anthem">▶️ Rock out with your Chonk out!</button>
+    <!-- 🎼 Chonkus Jukebox -->
+<section style="text-align:center; margin: 40px auto; max-width: 600px; background: #fff4e6; padding: 20px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
+  <h2>🎼 Chonkus Jukebox</h2>
 
-
-  <!-- Dropdown to Choose Track -->
-  <select id="trackSelector" onchange="selectChonkusTrack()" style="padding: 10px; font-size: 1rem; margin-left: 10px;">
-    <option value="0">🎶 Chonkus Anthem</option>
-    <option value="1">🌊 Chonkus on the Beach</option>
-    <option value="2">🌌 Midnight Chonk</option>
-    <option value="3">🍗 Feast of Chonkus</option>
+  <label for="jukebox" style="font-weight: bold;">Choose your anthem:</label>
+  <select id="jukebox" style="margin: 10px; padding: 8px; font-size: 1rem;">
+    <option value="opa">🇬🇷 Opa Odyssey</option>
+    <option value="meow">🐈 Mystic Meow</option>
+    <option value="souvlaki">🥙 Souvlaki Samba</option>
   </select>
 
-  <!-- Audio Element -->
-  <audio id="bgMusic" autoplay muted loop>
-    <source id="audioSource" src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-</div>
+  <button id="shuffleTrack" style="margin-left: 10px; padding: 8px 16px; font-size: 1rem; background: #ff9900; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    🌀 Shuffle
+  </button>
+
+  <div style="margin-top: 15px;">
+    <audio id="jukeboxPlayer" controls loop style="width: 100%;">
+      <source src="" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</section>
 
 <script>
+  const jukebox = document.getElementById('jukebox');
+  const shuffleBtn = document.getElementById('shuffleTrack');
+  const player = document.getElementById('jukeboxPlayer');
 
-  // 🎧 Array of audio sources (add your own URLs here)
-  const tracks = [
-   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3",
-   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
-   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
-   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Stormcall.mp3",
-  ];
+  const tracks = {
+    opa: {
+      name: "Opa Odyssey",
+      src: ""https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3","
+    },
+    meow: {
+      name: "Mystic Meow",
+      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
+    },
+    souvlaki: {
+      name: "Souvlaki Samba",
+      src: "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
+    }
+  };
 
-  let currentTrack = 0;
-  const audio = document.getElementById('bgMusic');
-  const source = document.getElementById('audioSource');
-  const selector = document.getElementById('trackSelector');
-
-  function playChonkusAnthem() {
-    audio.muted = false;
-    audio.play();
+  // Function to load and play selected track
+  function playTrack(key) {
+    if (!tracks[key]) return;
+    player.src = tracks[key].src;
+    player.play();
   }
 
-  function selectChonkusTrack() {
-    currentTrack = parseInt(selector.value);
-    source.src = tracks[currentTrack];
-    audio.load();
-    audio.play();
-  }
+  // Change track when dropdown changes
+  jukebox.addEventListener('change', () => {
+    playTrack(jukebox.value);
+  });
+
+  // Shuffle button selects a random track
+  shuffleBtn.addEventListener('click', () => {
+    const keys = Object.keys(tracks);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    jukebox.value = randomKey;
+    playTrack(randomKey);
+  });
+
+  // Optional: auto-load the first track
+  window.addEventListener('DOMContentLoaded', () => {
+    playTrack(jukebox.value);
+  });
 </script>
+
     
     <section class="link-grid">
       <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh">💬 Join Telegram</a>

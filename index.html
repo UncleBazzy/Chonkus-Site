@@ -230,16 +230,22 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
-    <!-- 🔊 Chonkus Anthem Player -->
+    <!-- 🔊 Chonkus Anthem Player with Playlist -->
 <div style="text-align: center; margin: 30px 0;">
+  <!-- Play Button -->
   <button onclick="playChonkusAnthem()" class="button" style="padding: 15px 25px; font-size: 1rem;">
-    ▶️ Rock out with your Chonk out!
+    ▶️ Play Chonkus Anthem
   </button>
 
-  <button onclick="nextChonkusTrack()" class="button" style="padding: 15px 25px; font-size: 1rem; margin-left: 10px;">
-    🔁 Next Opus
-  </button>
+  <!-- Dropdown to Choose Track -->
+  <select id="trackSelector" onchange="selectChonkusTrack()" style="padding: 10px; font-size: 1rem; margin-left: 10px;">
+    <option value="0">🎶 Chonkus Anthem</option>
+    <option value="1">🌊 Chonkus on the Beach</option>
+    <option value="2">🌌 Midnight Chonk</option>
+    <option value="3">🍗 Feast of Chonkus</option>
+  </select>
 
+  <!-- Audio Element -->
   <audio id="bgMusic" autoplay muted loop>
     <source id="audioSource" src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -247,29 +253,32 @@
 </div>
 
 <script>
+  // 🎧 Array of audio sources (add your own URLs here)
   const tracks = [
-    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3",
-    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
-    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
-    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Stormcall.mp3",
+   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3",
+   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
+   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
+   "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Stormcall.mp3",
   ];
 
   let currentTrack = 0;
   const audio = document.getElementById('bgMusic');
   const source = document.getElementById('audioSource');
+  const selector = document.getElementById('trackSelector');
 
   function playChonkusAnthem() {
     audio.muted = false;
     audio.play();
   }
 
-  function nextChonkusTrack() {
-    currentTrack = (currentTrack + 1) % tracks.length;
+  function selectChonkusTrack() {
+    currentTrack = parseInt(selector.value);
     source.src = tracks[currentTrack];
-    audio.load(); // Reload the audio element
+    audio.load();
     audio.play();
   }
 </script>
+
 
 
 

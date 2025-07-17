@@ -236,11 +236,41 @@
     ▶️ Play Chonkus Anthem
   </button>
 
+  <button onclick="nextChonkusTrack()" class="button" style="padding: 15px 25px; font-size: 1rem; margin-left: 10px;">
+    🔁 Next Track
+  </button>
+
   <audio id="bgMusic" autoplay muted loop>
-    <source src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
+    <source id="audioSource" src="https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/videoplayback.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 </div>
+
+<script>
+  const tracks = [
+    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maxima.mp3",
+    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Maximus.mp3",
+    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Nostalgia.mp3",
+    "https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/Stormcall.mp3",
+  ];
+
+  let currentTrack = 0;
+  const audio = document.getElementById('bgMusic');
+  const source = document.getElementById('audioSource');
+
+  function playChonkusAnthem() {
+    audio.muted = false;
+    audio.play();
+  }
+
+  function nextChonkusTrack() {
+    currentTrack = (currentTrack + 1) % tracks.length;
+    source.src = tracks[currentTrack];
+    audio.load(); // Reload the audio element
+    audio.play();
+  }
+</script>
+
 
 
     <section class="link-grid">

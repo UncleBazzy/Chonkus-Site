@@ -449,28 +449,24 @@
     let totalImages = 0;
     let imgElements = [];
 
-    async function loadGalleryImages() {
-  try {
-    const response = await fetch("https://api.github.com/repos/UncleBazzy/Chonkus-Site/contents/images");
-    const files = await response.json();
-    let imageFiles = files.filter(file => file.type === "file" && /\.(jpe?g|png|gif)$/i.test(file.name));
-
-    // Shuffle the images array before loading
-    imageFiles = shuffleArray(imageFiles);
-
-    totalImages = imageFiles.length;
-    imageFiles.forEach((file, i) => {
-      const img = document.createElement("img");
-      img.src = file.download_url;
-      img.alt = file.name;
-      if (i === 0) img.classList.add("active");
-      galleryImages.appendChild(img);
-      imgElements.push(img);
-    });
-  } catch (err) {
-    console.error("Error loading gallery images:", err);
-  }
-}
+   async function loadGalleryImages() {
+      try {
+        const response = await fetch("https://api.github.com/repos/UncleBazzy/Chonkus-Site/contents/images");
+        const files = await response.json();
+        const imageFiles = files.filter(file => file.type === "file" && /\.(jpe?g|png|gif)$/i.test(file.name));
+        totalImages = imageFiles.length;
+        imageFiles.forEach((file, i) => {
+          const img = document.createElement("img");
+          img.src = file.download_url;
+          img.alt = file.name;
+          if (i === 0) img.classList.add("active");
+          galleryImages.appendChild(img);
+          imgElements.push(img);
+        });
+      } catch (err) {
+        console.error("Error loading gallery images:", err);
+      }
+    }
     function showImage(i) {
       imgElements.forEach((img, idx) => {
         img.classList.toggle("active", idx === i);

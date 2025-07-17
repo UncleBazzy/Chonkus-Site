@@ -490,15 +490,6 @@
     setInterval(() => { if (totalImages > 0) nextImage(); }, 5000);
     loadGalleryImages();
 
-    // Chonk Counter
-    const chonkCount = document.getElementById("chonkCount");
-    let count = Math.floor(Math.random() * 1000) + 1000;
-    chonkCount.textContent = count.toLocaleString();
-    setInterval(() => {
-      count += Math.floor(Math.random() * 3);
-      chonkCount.textContent = count.toLocaleString();
-    }, 4000);
-
     // Tales of Chonkus
     const tales = [
       "Chonkus once fell asleep inside a bakery display. Tourists thought he was a new kind of croissant.",
@@ -521,9 +512,7 @@
       "The mayor tried to pet him. Chonkus moved an inch. The mayor bowed.",
       "Two seagulls fought over a fry. Chonkus walked between them. Silence.",
       "A storm hit the island. Chonkus remained dry. No one knows how."
-]
 
-      
     ];
 
     let taleIndex = 0;

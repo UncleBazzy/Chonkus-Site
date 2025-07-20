@@ -219,35 +219,38 @@
     width: 100%;
   }
 }
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA=" crossorigin=""></script>
 
 <script>
-  // 🌍 Initialize Leaflet map
-  const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
+  document.addEventListener("DOMContentLoaded", () => {
+    // 🌍 Initialize map
+    const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-  // 🐾 Chonkus Maximus Custom Marker
-  const chonkusIcon = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg', 
-    iconSize: [50, 50],
-    iconAnchor: [25, 50],
-    popupAnchor: [0, -50]
+    // 🐾 Chonkus Maximus Custom Icon
+    const chonkusIcon = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg',
+      iconSize: [50, 50],
+      iconAnchor: [25, 50],
+      popupAnchor: [0, -50]
+    });
+
+    // 🐱 Add Marker for Chonkus HQ
+    const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
+
+    chonkusMarker.bindPopup(`
+      <b>🐾 Chonkus Maximus HQ</b><br>
+      The Belly Throne of Heraklion.<br>
+      <em>"This bench is mine now."</em>
+    `).openPopup();
+
+    chonkusMarker.bindTooltip("🐈‍⬛ Pet me if you dare", { direction: 'top' });
   });
-
-  const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
-
-  chonkusMarker.bindPopup(`
-    <b>🐾 Chonkus Maximus HQ</b><br>
-    The Belly Throne of Heraklion.<br>
-    <em>"This bench is mine now."</em>
-  `).openPopup();
-
-  // Optional tooltip on hover
-  chonkusMarker.bindTooltip("🐈‍⬛ Pet me if you dare", { direction: 'top' });
 </script>
+
 
   </style>
 </head>

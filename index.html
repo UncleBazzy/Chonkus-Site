@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Community Hub</title>
 
-  <source src="videoplayback.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
 
   <!-- Leaflet CSS -->
   <link
@@ -215,12 +211,13 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    @media (max-width: 480px) {
-  select, button {
-    font-size: 1.1rem;
-    padding: 12px;
+    @media (max-width: 768px) {
+  .overlay, .gallery-container, .story-rotator, .intro {
+    padding: 20px 10px;
+    width: 100%;
   }
 }
+
   </style>
 </head>
 <body>
@@ -529,14 +526,6 @@
     rotateTales();
     setInterval(rotateTales, 7000);
 
-    // Initialize Leaflet map
-    const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-  </script>
-  <script>
-  const bgMusic = document.getElementById('bgMusic');
 
   // Unmute & play after user interaction (required for many browsers)
   function playChonkusAnthem() {
@@ -569,6 +558,22 @@
     utterance.lang = 'en-US';
     window.speechSynthesis.speak(utterance);
   });
+
+  const chonkusIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.png',
+  iconSize: [50, 50],
+  iconAnchor: [25, 50],
+  popupAnchor: [0, -50]
+});
+
+const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
+
+chonkusMarker.bindPopup(`
+  <b>🐾 Chonkus Maximus HQ</b><br>
+  The Belly Throne of Heraklion.<br>
+  <em>"This bench is mine now."</em>
+`).openPopup();
+
   
 </body>
 </html>

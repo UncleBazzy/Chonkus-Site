@@ -232,6 +232,27 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
+     const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+  // 🐾 Custom Chonkus Marker
+const chonkusIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg',
+  iconSize: [50, 50],
+  iconAnchor: [25, 50],
+  popupAnchor: [0, -50]
+});
+
+const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
+
+chonkusMarker.bindPopup(`
+  <b>🐾 Chonkus Maximus HQ</b><br>
+  The Belly Throne of Heraklion.<br>
+  <em>"This bench is mine now."</em>
+`).openPopup();
+
     <!-- 🎼 Chonkus Jukebox -->
 <section style="text-align:center; margin: 40px auto; max-width: 600px; background: #fff4e6; padding: 20px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
   <h2>🎼 Chonkus Jukebox</h2>
@@ -558,29 +579,6 @@
     utterance.lang = 'en-US';
     window.speechSynthesis.speak(utterance);
   });
-
- const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
-  // 🐾 Custom Chonkus Marker
-const chonkusIcon = L.icon({
-  iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg',
-  iconSize: [50, 50],
-  iconAnchor: [25, 50],
-  popupAnchor: [0, -50]
-});
-
-const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
-
-chonkusMarker.bindPopup(`
-  <b>🐾 Chonkus Maximus HQ</b><br>
-  The Belly Throne of Heraklion.<br>
-  <em>"This bench is mine now."</em>
-`).openPopup();
-
-
   
 </body>
 </html>

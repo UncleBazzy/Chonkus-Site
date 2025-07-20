@@ -203,39 +203,6 @@
       text-align: center;
     }
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA=" crossorigin=""></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // 🌍 Initialize map
-    const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // 🐾 Chonkus Maximus Custom Icon
-    const chonkusIcon = L.icon({
-      iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg',
-      iconSize: [50, 50],
-      iconAnchor: [25, 50],
-      popupAnchor: [0, -50]
-    });
-
-    // 🐱 Add Marker for Chonkus HQ
-    const chonkusMarker = L.marker([35.3392, 25.1333], { icon: chonkusIcon }).addTo(map);
-
-    chonkusMarker.bindPopup(`
-      <b>🐾 Chonkus Maximus HQ</b><br>
-      The Belly Throne of Heraklion.<br>
-      <em>"This bench is mine now."</em>
-    `).openPopup();
-
-    chonkusMarker.bindTooltip("🐈‍⬛ Pet me if you dare", { direction: 'top' });
-  });
-</script>
-
-
   </style>
 </head>
 <body>
@@ -250,22 +217,6 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
-        <div id="chonkMap"></div>
-
-    #chonkMap {
-      height: 400px;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    @media (max-width: 768px) {
-  .overlay, .gallery-container, .story-rotator, .intro {
-    padding: 20px 10px;
-    width: 100%;
-  }
-}
 
     <!-- 🎼 Chonkus Jukebox -->
 <section style="text-align:center; margin: 40px auto; max-width: 600px; background: #fff4e6; padding: 20px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
@@ -334,8 +285,6 @@
   });
 </script>
 
-
-    
     <section class="link-grid">
       <a class="button" href="https://t.me/+TixMgybLw7g0Yzhh">💬 Join Telegram</a>
       <a class="button" href="https://x.com/i/communities/1943379266932285826">🐦 X Community</a>
@@ -464,8 +413,6 @@
         ></iframe>
       </div>
     </section>
-
-    <div id="chonkMap"></div>
 
     <footer>
       &copy; 2025 Your Community. All rights reserved.

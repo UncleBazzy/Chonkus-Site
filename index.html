@@ -232,15 +232,19 @@
       <p>He’s not just fat. He’s an <strong>institution</strong>. Rumor has it he once slept through an earthquake, meowed at a ghost, and demanded a fish from a priest — and got it. Now, his fan club is growing faster than his waistline. Welcome to the hub of all things Chonkus 🐈‍⬛🇬🇷</p>
     </section>
 
-    <script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j/zqd8hCzW7BvLzvEcDR6zgtN2oOKA3nqhU1CQA=" crossorigin=""></script>
+
+<script>
+  // 🌍 Initialize Leaflet map
   const map = L.map('chonkMap').setView([35.3392, 25.1333], 15);
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // 🐾 Chonkus Custom Marker
+  // 🐾 Chonkus Maximus Custom Marker
   const chonkusIcon = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg',
+    iconUrl: 'https://raw.githubusercontent.com/UncleBazzy/Chonkus-Site/main/images/chonkus-icon.jpg', 
     iconSize: [50, 50],
     iconAnchor: [25, 50],
     popupAnchor: [0, -50]
@@ -253,6 +257,9 @@
     The Belly Throne of Heraklion.<br>
     <em>"This bench is mine now."</em>
   `).openPopup();
+
+  // Optional tooltip on hover
+  chonkusMarker.bindTooltip("🐈‍⬛ Pet me if you dare", { direction: 'top' });
 </script>
 
 

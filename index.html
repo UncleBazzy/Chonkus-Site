@@ -228,6 +228,28 @@
     }
 
   </style>
+  
+  .map-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 400px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 12px;
+}
+
 </head>
 <body>
 
@@ -245,7 +267,14 @@
   <h2>🏡 Find Chonkus Chillin'</h2>
   <p><strong>Location:</strong> Akti Kanari 5, Chania 731 31, Greece 🇬🇷</p>
 
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.4966131998663!2d24.00646987716682!3d35.5167235389911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x149c7da24f4af6e9%3A0x2049dce44f870536!2sAkti%20Kanari%205%2C%20Chania%20731%2031%2C%20Greece!5e0!3m2!1sen!2sau!4v1753055481857!5m2!1sen!2sau" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+     <div class="map-container">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.4966131998663!2d24.00646987716682!3d35.5167235389911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x149c7da24f4af6e9%3A0x2049dce44f870536!2sAkti%20Kanari%205%2C%20Chania%20731%2031%2C%20Greece!5e0!3m2!1sen!2sau!4v1753055481857!5m2!1sen!2sau"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
 
     <!-- 🎼 Chonkus Jukebox -->
 <section style="text-align:center; margin: 40px auto; max-width: 600px; background: #fff4e6; padding: 20px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
